@@ -15,6 +15,12 @@
 1. Disable extension at `chrome://extensions` page,  unchecking `Enabled` for Team Turtle 5 extension.
 
 ## Misc Notes
-Turtle icon downloaded from [flaticon](https://www.flaticon.com/free-icon/sea-turtle_67985#term=turtle&page=1&position=2)  
+
+[Turtle icon](https://www.flaticon.com/free-icon/sea-turtle_67985) downloaded from Flaticon  
+[Chrome icon](https://www.flaticon.com/free-icon/chrome_152759) downloaded from Flaticon  
+[Nine Square icon](https://www.flaticon.com/free-icon/keyboard-buttons-or-visualization-button-of-nine-squares_56844) downloaded from Flaticon  
+
+Chrome and Nine Square Icon color hex code #D3D3D3
+
 Icon credit required if project published:  
 Turtle icon made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>

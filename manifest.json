@@ -4,13 +4,16 @@
   "description": "Momentum clone",
   "version": "1.0.0",
   "icons": {
-    "16": "sea-turtle16.png",
-    "128": "sea-turtle128.png"
+    "16": "./icons/sea-turtle16.png",
+    "128": "./icons/sea-turtle128.png"
   },
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
   "browser_action": {
-    "default_icon": "sea-turtle16.png"
-  }  
+    "default_icon": "./icons/sea-turtle16.png"
+  },
+  "permissions": [
+    "tabs"
+  ]
 }
