@@ -68,7 +68,7 @@ function getUpdatedUserLocation() {
           localStorage.setItem('userLat', position.coords.latitude);
           localStorage.setItem('userLon', position.coords.longitude);
           localStorage.setItem('userLocationTimestamp', new Date().getTime());
-          
+
           localStorage.removeItem('userCity');  // remove old userCity and userCountry from localstorage
           localStorage.removeItem('userCountry'); // they will be retrieved using weather api
 
@@ -109,9 +109,9 @@ function getUpdatedWeather() {
   })
     .done(function (result) {
       if (localStorage.getItem("userCity") === null) {
-          localStorage.setItem('userCity', result.name);
-          localStorage.setItem('userCountry', result.sys.country); 
-      }       
+        localStorage.setItem('userCity', result.name);
+        localStorage.setItem('userCountry', result.sys.country);
+      }
 
       localStorage.setItem('currentTemp', result.main.temp);
       localStorage.setItem('currentWeatherDesc', result.weather[0].description);
@@ -128,6 +128,7 @@ function addWeatherToPage() {
   $("#city").text(localStorage.userCity);
   $("#temp").text(Math.round(localStorage.currentTemp) + " " + String.fromCharCode(176));
   $("#temp-scale").text("C");
+  $("#weather-icon").removeClass();
   $("#weather-icon").addClass(pickIcon(localStorage.weatherId, localStorage.weatherIconCode));
   $('#weather-icon').prop('title', titleCase(localStorage.currentWeatherDesc));
   $("main").show();
@@ -138,12 +139,15 @@ function pickIcon(weatherCode, iconCode) {
   var prefix = 'wi wi-';
   var icon = weatherIcons[weatherCode].icon;
   if (iconCode.charAt(2).toLowerCase() == 'n') {
-    icon = 'night-alt' + icon;
+    icon = 'night-alt-' + icon;
   } else {
     icon = 'day-' + icon;
   }
   if (icon == 'day-clear') {
     icon = 'day-sunny';
+  }
+  if (icon == 'night-alt-clear') {
+    icon = 'night-clear';
   }
   return prefix + icon;
 }
