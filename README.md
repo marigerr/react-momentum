@@ -10,9 +10,42 @@
 1. After forking and cloning repo, open Chrome and navigate to `chrome://extensions`  
 1. Check `developer mode` checkbox at top of page   
 1. Click `Load unpacked extension` button 
-1. In the popup that opens, navigate to the folder that project was cloned to and select it.
+1. In the popup that opens, navigate and open the folder that project was cloned to, **then select the "dist" folder.**
 1. New tabs should now open with extension's index.html page
 1. Disable extension at `chrome://extensions` page,  unchecking `Enabled` for Team Turtle 5 extension.
+
+## Webpack info
+
+### New files
+
+- Add javascript to src/scripts  
+- Add images to src/assets/images  
+- Add css files to src/assets/css (or add css to existing css file)  
+
+### Exporting / Importing javascript functions
+1. At bottom of added script file, export any functions that will be accessed in index.js file    
+`export { getUserLocation };`      
+1. Change index.js to import functions.  Only need to import functions that will be used in index.js  
+`import { getUserLocation } from "Javascript/geolocation.js";`
+
+### Importing images
+- Change index.js to import images
+`import 'Images/chrome-grey.svg';`
+- Images are added to the dist folder by file-loader  
+
+### Aliases
+- Path aliases Javascript, Image, and Stylesheets folders
+- Instead of using full path can reference with aliases  
+`Javascript/yourfile.js`  
+`Image/yourimage.svg`  
+`Stylesheets/yourcss.css` 
+
+### Scripts  
+`npm run build`  manually build  
+`npm run watch`  detect saved changes and re-build  
+`npm run dev-server`  opens index.html in chrome (as regular webpage). Rebuilds and reloads webpage with every saved change.  Chrome extension specific code won't work, but using the dev-server can be handy sometimes.
+
+If webpack.config file is changed, need restart watching or dev-server
 
 ## Misc Notes
 
