@@ -10,6 +10,20 @@ function addClickHandlers() {
   $("#chrome-apps-link").click(function () {
     chrome.tabs.update({ url: 'chrome://apps/' });
   });
+  // toggle showing input field when click on search icon
+  $("#chrome-search-link").click(function (event) {
+    event.preventDefault();
+    $("#chrome-search-input").toggle();
+    $("#chrome-search-input").focus();
+  });
+  // listener to open search page with search term from input when enter key pressed
+  $("#chrome-search-input").keypress(function (e) {
+    if (e.keyCode == 13) {
+      var searchTerm = $("#chrome-search-input").val().split(" ").join("+");
+      $("#chrome-search-input").val("");
+      chrome.tabs.update({ url: 'http://www.google.com/search?q=' + searchTerm });
+    }
+  });
   // Toggle Weather temperature scale when clicked
   $("#temp-scale").click(function () {
     changeTempScale();
@@ -31,4 +45,4 @@ function changeTempScale() {
   }
 }
 
-export {addClickHandlers};
+export { addClickHandlers };

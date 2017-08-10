@@ -10,13 +10,16 @@
 
 <body>
   <!-- hide main element until apis return data -->
-  <main style="display:none;">  
+  <main style="display:none;">
     <div class="row top-row">
       <div id="top-left">
         <div>Links</div>
         <div><a href="#" id="chrome-tab-link" title="Chrome Tab"><img class="icon-top-left" src="./assets/images/chrome-grey.svg" alt="Chrome Tab"></a></div>
         <div><a href="#" id="chrome-apps-link" title="Apps"><img class="icon-top-left" src="./assets/images/nine-squares-grey.svg" alt="Chrome Apps"></a></div>
-        <div>Search</div>
+        <div id="search-div">
+          <a href="#" id="chrome-search-link" title="Search"><img class="icon-top-left" src="./assets/images/search-grey.svg" alt="Search"></a>
+          <input type="text" id="chrome-search-input" name="search" style="display:none;">
+        </div>
       </div>
       <div id="top-right">
         <div><i id="weather-icon"></i> <span id="temp"></span><span class="temp" id="temp-scale"></span></div>
