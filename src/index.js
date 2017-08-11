@@ -1,10 +1,12 @@
 import './manifest.json';
 import './index.html';
 import 'Images/chrome-grey.svg';
+import 'Images/search-grey.svg';
 import 'Images/nine-squares-grey.svg';
 import 'Images/sea-turtle16.png';
 import 'Images/sea-turtle128.png';
 import 'Stylesheets/index.css';
+import 'Stylesheets/top-left-search.css';
 import 'Stylesheets/weather-icons.min.css';
 import $ from "jQuery/jquery.min.js";
 import { dislayCachedWeather, weatherIsCurrent, getLocationAndWeather } from "Components/weather.js";
