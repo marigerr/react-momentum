@@ -12,5 +12,9 @@
         "config": "webpack.config.js"
       }
     }
+  },
+  "rules": {
+    "no-use-before-define": ["error", { "functions": false }],
+    "no-mixed-operators": [ "error", { "allowSamePrecedence": true }]
   }
 }

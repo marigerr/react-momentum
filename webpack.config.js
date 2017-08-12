@@ -54,6 +54,7 @@ module.exports = {
       path.join(__dirname, 'node_modules'),
     ],
     alias: {
+      Src: path.resolve(__dirname, './src/'),
       jQuery: path.resolve(__dirname, './node_modules/jquery/dist'),
       Scripts: path.resolve(__dirname, './src/scripts/'),
       Components: path.resolve(__dirname, './src/scripts/components'),

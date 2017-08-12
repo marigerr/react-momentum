@@ -1,4 +1,4 @@
-import $ from "jQuery/jquery.min.js";
+import $ from 'jQuery/jquery.min';
 
 function getCurrentTime() {
   return new Date().getTime();
@@ -6,23 +6,23 @@ function getCurrentTime() {
 
 // utility function to change string to titlecase
 function titleCase(str) {
-  return str.toLowerCase().split(' ').map(function (word) {
-    return word.replace(word[0], word[0].toUpperCase());
-  }).join(' ');
+  return str.toLowerCase().split(' ').map(word => word.replace(word[0], word[0].toUpperCase())).join(' ');
 }
 
 function getUserLocation() {
-  return $.getJSON("https://ipinfo.io/geo", function (response) { }, "jsonp")
-    .done(function (response) {
-      var latlon = response.loc.split(",");
+  return $.getJSON({
+    url: 'https://ipinfo.io/geo',
+    jsonp: true,
+  })
+    .done((response) => {
+      const latlon = response.loc.split(',');
       localStorage.setItem('userLat', latlon[0]);
       localStorage.setItem('userLon', latlon[1]);
       localStorage.setItem('userCity', response.city);
       localStorage.setItem('userCountry', response.country);
       localStorage.setItem('userLocationTimestamp', new Date().getTime());
-      console.log('userLocation saved to storage');
-    })
-};
+    });
+}
 
 // Need to fix fallback HTML5 if ipinfo fails
 
@@ -32,9 +32,10 @@ function getUserLocation() {
 //       localStorage.setItem('userLat', position.coords.latitude);
 //       localStorage.setItem('userLon', position.coords.longitude);
 //       localStorage.setItem('userLocationTimestamp', new Date().getTime());
-//       localStorage.removeItem('userCity');  // remove old userCity and userCountry from localstorage
-//       localStorage.removeItem('userCountry'); // they will be retrieved using weather api
-//       console.log('userLocation saved to storage');
+//       // remove old userCity and userCountry from localstorage
+//       // they will be retrieved using weather api
+//       localStorage.removeItem('userCity');  
+//       localStorage.removeItem('userCountry');
 //     })
 //   )
 //   if (navigator.geolocation) {
@@ -43,4 +44,4 @@ function getUserLocation() {
 //   }
 // };
 
-export { titleCase, getCurrentTime, getUserLocation }
+export { titleCase, getCurrentTime, getUserLocation };
