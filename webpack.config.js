@@ -11,21 +11,31 @@ module.exports = {
   },
   devtool: "source-map",
   devServer: {
-      contentBase: path.resolve(__dirname, 'dist'),
-      watchOptions: { poll: true },
-      compress: true,
-      port: 8080
+    contentBase: path.resolve(__dirname, 'dist'),
+    watchOptions: { poll: true },
+    compress: true,
+    port: 8080
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: [
           'babel-loader',
           'eslint-loader',
         ],
       },
+      // uncomment block below to fix linting errors automatically,
+      // then comment out 'es-lint-loader' in above code block
+
+      // {
+      //   test: /\.(js|jsx)$/,
+      //   exclude: /node_modules/,
+      //   loader: 'eslint-loader',
+      //   options: { fix : true }
+      // },
+      
       {
         test: /\.css$/,
         use: [
@@ -35,18 +45,18 @@ module.exports = {
       },
       {
         test: [
-                /\.(png|svg|jpg|gif)$/,
-                /\.(woff|woff2|eot|ttf|otf)$/,
-                path.join(__dirname, 'src/manifest.json'),
-                path.join(__dirname, 'src/index.html')
-              ],
+          /\.(png|svg|jpg|gif)$/,
+          /\.(woff|woff2|eot|ttf|otf)$/,
+          path.join(__dirname, 'src/manifest.json'),
+          path.join(__dirname, 'src/index.html')
+        ],
         use: [{
           loader: 'file-loader',
           options: {
             name: '[path][name].[ext]'
           }
         }]
-      }  
+      }
     ]
   },
   resolve: {
@@ -55,9 +65,8 @@ module.exports = {
     ],
     alias: {
       Src: path.resolve(__dirname, './src/'),
-      jQuery: path.resolve(__dirname, './node_modules/jquery/dist'),
       Scripts: path.resolve(__dirname, './src/scripts/'),
-      Components: path.resolve(__dirname, './src/scripts/components'),
+      Components: path.resolve(__dirname, './src/components'),
       Events: path.resolve(__dirname, './src/scripts/events'),
       Stylesheets: path.resolve(__dirname, './src/assets/css/'),
       Images: path.resolve(__dirname, './src/assets/images/'),

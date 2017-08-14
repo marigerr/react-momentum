@@ -1,0 +1,34 @@
+.top-left-flex {
+  display: flex;
+  justify-content: space-around;
+}
+
+#top-left a {
+  margin: 0px 10px;
+}
+
+#chrome-search-input {
+  border: none;
+  border-bottom: 2px solid #D3D3D3;
+  width: 250px;
+}
+
+#chrome-search-input:focus, #chrome-search-input:active {
+  border: none;
+  border-bottom: 2px solid #D3D3D3;
+  outline: none;
+}
+
+#search-div {
+  display: flex;
+  align-items: center;
+}
+
+#search-div>a {
+  margin-right: 10px;
+}
+
+.icon-top-left {
+  width: 18px;
+  height: 18px;
+}

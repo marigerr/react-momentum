@@ -1,6 +1,14 @@
 {
   "parser": "babel-eslint",
-  "extends": "eslint-config-airbnb-base",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },  
+  "extends": [
+    "eslint-config-airbnb-base",
+    "plugin:react/recommended"
+  ],
   "env": {
 	    "browser": true,
 	    "node": true,
@@ -15,6 +23,14 @@
   },
   "rules": {
     "no-use-before-define": ["error", { "functions": false }],
-    "no-mixed-operators": [ "error", { "allowSamePrecedence": true }]
-  }
+    "no-mixed-operators": [ "error", { "allowSamePrecedence": true }],
+    "max-len": ["off"],
+    "class-methods-use-this": "warn"
+    // "no-console": "off",
+    // "no-unused-vars": "off",
+    // "class-methods-use-this": "off"
+  },
+  "plugins": [
+    "react"
+  ]  
 }

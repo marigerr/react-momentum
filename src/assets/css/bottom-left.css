@@ -1,0 +1,7 @@
+.bottom-left {
+  display: flex;
+}
+
+.bottom-left > div {
+  margin: 0px 10px;
+}

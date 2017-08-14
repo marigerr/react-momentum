@@ -21,73 +21,13 @@ main {
   align-items: center;
 }
 
-#top-left {
-  display: flex;
-  justify-content: space-around;
-}
-
-#top-left div {
-  margin: 0px 10px;
-}
-
-#top-right {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#top-right > div {
-  margin: 0px 0px;
-}
-
 .middle-row {
   justify-content: center;
   align-items: center;
 }
 
-#center > div {
-  text-align: center;
-}
-
-#bottom-left {
-  display: flex;
-}
-
-#bottom-left > div {
-  margin: 0px 10px;
-}
-
-#bottom-left, #bottom-right {
+#bottom-left, #to-do-list {
   flex-grow: 1;
   flex-basis: 25%;
 }
 
-#bottom-right {
-  display: flex;
-  justify-content: flex-end;
-}
-
-#bottom-center {
-  text-align: center;
-  flex-grow: 2;
-  flex-basis: 50%;
-}
-
-/* Weather top-right */
-.wi {
-  font-size: 20px;
-}
-
-.temp{
-  cursor:pointer;
-}
-
-.temp:hover{
-  color:lightgrey;
-} 
-
-/* top-left  */
-.icon-top-left {
-  width: 18px;
-  height: 18px;
-}

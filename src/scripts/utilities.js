@@ -1,4 +1,4 @@
-import $ from 'jQuery/jquery.min';
+import axios from 'axios';
 
 function getCurrentTime() {
   return new Date().getTime();
@@ -9,20 +9,32 @@ function titleCase(str) {
   return str.toLowerCase().split(' ').map(word => word.replace(word[0], word[0].toUpperCase())).join(' ');
 }
 
+function addToLocalStorage(key, value) {
+  // console.log('adding to local storage');
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+function getFromLocalStorage(key) {
+  // console.log('get from Local Storage');
+  return JSON.parse(localStorage.getItem(key));
+}
+
+function localStorageKeyExists(key) {
+  return localStorage.getItem(key) !== null;
+}
+
 function getUserLocation() {
-  return $.getJSON({
-    url: 'https://ipinfo.io/geo',
-    jsonp: true,
-  })
-    .done((response) => {
-      const latlon = response.loc.split(',');
-      localStorage.setItem('userLat', latlon[0]);
-      localStorage.setItem('userLon', latlon[1]);
-      localStorage.setItem('userCity', response.city);
-      localStorage.setItem('userCountry', response.country);
-      localStorage.setItem('userLocationTimestamp', new Date().getTime());
+  return axios.get('https://ipinfo.io/geo')
+    .then((response) => {
+      const latlon = response.data.loc.split(',');
+      const userLocation = response.data;
+      userLocation.lat = latlon[0];
+      userLocation.lon = latlon[1];
+      addToLocalStorage('userLocation', userLocation);
+      addToLocalStorage('userLocationTimestamp', getCurrentTime());
     });
 }
+
 
 // Need to fix fallback HTML5 if ipinfo fails
 
@@ -44,4 +56,4 @@ function getUserLocation() {
 //   }
 // };
 
-export { titleCase, getCurrentTime, getUserLocation };
+export { titleCase, getCurrentTime, getUserLocation, addToLocalStorage, getFromLocalStorage, localStorageKeyExists };

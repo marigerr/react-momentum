@@ -5,47 +5,26 @@
   <title></title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="bundle.js"></script>
 </head>
 
 <body>
   <!-- hide main element until apis return data -->
-  <main style="display:none;">
+  <!-- <main style="display:none;"> -->
+  <main>
     <div class="row top-row">
-      <div id="top-left">
-        <div>Links</div>
-        <div><a href="#" id="chrome-tab-link" title="Chrome Tab"><img class="icon-top-left" src="./assets/images/chrome-grey.svg" alt="Chrome Tab"></a></div>
-        <div><a href="#" id="chrome-apps-link" title="Apps"><img class="icon-top-left" src="./assets/images/nine-squares-grey.svg" alt="Chrome Apps"></a></div>
-        <div id="search-div">
-          <a href="#" id="chrome-search-link" title="Search"><img class="icon-top-left" src="./assets/images/search-grey.svg" alt="Search"></a>
-          <input type="text" id="chrome-search-input" name="search" style="display:none;">
-        </div>
-      </div>
-      <div id="top-right">
-        <div><i id="weather-icon"></i> <span id="temp"></span><span class="temp" id="temp-scale"></span></div>
-        <div><span id="city"></span></div>
-      </div>
+      <div id="top-left"></div>
+      <div id="top-right-weather"></div>
     </div>
     <div class="row middle-row">
-      <div id="center">
-        <div>Time</div>
-        <div>Greeting</div>
-        <div>Main Focus For the Day</div>
-      </div>
+      <div id="center"></div>
     </div>
     <div class="row bottom-row">
-      <div id="bottom-left">
-        <div>Settings</div>
-        <div>Wallpaper Description</div>
-      </div>
-      <div id="bottom-center">
-        <div>Cherish your visions and your dreams as they are the children of your soul;<br>the blueprints of your ultimate achievements.</div>
-      </div>
-      <div id="bottom-right">
-        <div>To Do</div>
-      </div>
+      <div id="bottom-left"></div>
+      <div id="quote"></div>
+      <div id="to-do-list"></div>
     </div>
   </main>
+  <script src="bundle.js"></script>
 </body>
 
 </html>
