@@ -1,7 +1,7 @@
 import React from 'react';
 import 'Stylesheets/bottom-left.css';
 
-export default class CenterLeft extends React.Component {
+export default class BottomLeft extends React.Component {
   constructor(props) {
     super(props);
 

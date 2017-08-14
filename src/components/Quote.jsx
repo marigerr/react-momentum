@@ -2,7 +2,7 @@ import React from 'react';
 import 'Stylesheets/quote.css';
 
 
-export default class CenterLeft extends React.Component {
+export default class Quote extends React.Component {
   constructor(props) {
     super(props);
 

@@ -2,7 +2,7 @@ import React from 'react';
 import 'Stylesheets/center.css';
 
 
-export default class CenterLeft extends React.Component {
+export default class Center extends React.Component {
   constructor(props) {
     super(props);
 
