@@ -21,34 +21,45 @@ export default class Weather extends React.Component {
         currentWeatherIconClass: pickIcon(weatherData.weather[0].id, weatherData.weather[0].icon),
         weatherDesc: titleCase(weatherData.weather[0].description),
       };
-    } else if (localStorageKeyExists('userLocation')) {
-      const userLocation = getFromLocalStorage('userLocation');
-      this.state = {
-        userCity: userLocation.city,
-        userLat: userLocation.lat,
-        userLon: userLocation.lon,
-      };
     }
   }
 
   componentDidMount() {
+    // console.log(this.state);
     const currentTime = getCurrentTime();
     const weatherIsCurrent = this.state && currentTime - localStorage.weatherTimestamp < 600000;
     if (!weatherIsCurrent) {
-      const api = 'https://hickory-office.glitch.me/api.weather?';
-      const lat = `lat=${this.state.userLat}`;
-      const lon = `lon=${this.state.userLon}`;
-      const urlString = [api, lat, '&', lon].join('');
+      axios.get('https://ipinfo.io/geo')
+        .then((response) => {
+          console.log('fetched ipinfo', response);
+          const latlon = response.data.loc.split(',');
+          const userLocation = response.data;
+          userLocation.lat = latlon[0];
+          userLocation.lon = latlon[1];
+          addToLocalStorage('userLocation', userLocation);
+          addToLocalStorage('userLocationTimestamp', getCurrentTime());
+          this.setState({
+            userCity: response.data.city,
+            userLat: response.data.lat,
+            userLon: response.data.lon,
+          });
+        })
+        .then(() => {
+          const api = 'https://hickory-office.glitch.me/api.weather?';
+          const lat = `lat=${this.state.userLat}`;
+          const lon = `lon=${this.state.userLon}`;
+          const urlString = [api, lat, '&', lon].join('');
 
-      axios.get(urlString)
-        .then((result) => {
-          addToLocalStorage('weather', result.data);
-          addToLocalStorage('weatherTimestamp', getCurrentTime());
-          // this.setState({ userCity: result.data.name });
-          this.setState({ currentTemp: `${Math.round(result.data.main.temp)} ${String.fromCharCode(176)}` });
-          this.setState({ tempScale: 'C' });
-          this.setState({ weatherDesc: titleCase(result.data.weather[0].description) });
-          this.setState({ currentWeatherIconClass: pickIcon(result.data.weather[0].id, result.data.weather[0].icon) });
+          axios.get(urlString)
+            .then((result) => {
+              addToLocalStorage('weather', result.data);
+              addToLocalStorage('weatherTimestamp', getCurrentTime());
+              // this.setState({ userCity: result.data.name });
+              this.setState({ currentTemp: `${Math.round(result.data.main.temp)} ${String.fromCharCode(176)}` });
+              this.setState({ tempScale: 'C' });
+              this.setState({ weatherDesc: titleCase(result.data.weather[0].description) });
+              this.setState({ currentWeatherIconClass: pickIcon(result.data.weather[0].id, result.data.weather[0].icon) });
+            });
         });
     }
   }

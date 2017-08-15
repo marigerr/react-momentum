@@ -24,9 +24,10 @@
   "rules": {
     "no-use-before-define": ["error", { "functions": false }],
     "no-mixed-operators": [ "error", { "allowSamePrecedence": true }],
-    "max-len": ["off"]
-    // "no-console": "off",
+    "max-len": ["off"],
+    "no-console": "off"
     // "no-unused-vars": "off",
+    // "class-methods-use-this": "off"
   },
   "plugins": [
     "react"

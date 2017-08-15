@@ -1,7 +1,15 @@
-import axios from 'axios';
+// import axios from 'axios';
 
 function getCurrentTime() {
   return new Date().getTime();
+}
+
+function isNotANewDay(prevTimestamp, currTimestamp) {
+  const current = new Date(parseInt(currTimestamp, 10)).setHours(0, 0, 0, 0);
+  const previous = new Date(parseInt(prevTimestamp, 10)).setHours(0, 0, 0, 0);
+  // console.log(prevTimestamp, currTimestamp);
+  // console.log(previous, current);
+  return current === previous;
 }
 
 // utility function to change string to titlecase
@@ -23,17 +31,17 @@ function localStorageKeyExists(key) {
   return localStorage.getItem(key) !== null;
 }
 
-function getUserLocation() {
-  return axios.get('https://ipinfo.io/geo')
-    .then((response) => {
-      const latlon = response.data.loc.split(',');
-      const userLocation = response.data;
-      userLocation.lat = latlon[0];
-      userLocation.lon = latlon[1];
-      addToLocalStorage('userLocation', userLocation);
-      addToLocalStorage('userLocationTimestamp', getCurrentTime());
-    });
-}
+// function getUserLocation() {
+//   return axios.get('https://ipinfo.io/geo')
+//     .then((response) => {
+//       const latlon = response.data.loc.split(',');
+//       const userLocation = response.data;
+//       userLocation.lat = latlon[0];
+//       userLocation.lon = latlon[1];
+//       addToLocalStorage('userLocation', userLocation);
+//       addToLocalStorage('userLocationTimestamp', getCurrentTime());
+//     });
+// }
 
 
 // Need to fix fallback HTML5 if ipinfo fails
@@ -56,4 +64,4 @@ function getUserLocation() {
 //   }
 // };
 
-export { titleCase, getCurrentTime, getUserLocation, addToLocalStorage, getFromLocalStorage, localStorageKeyExists };
+export { titleCase, getCurrentTime, addToLocalStorage, getFromLocalStorage, localStorageKeyExists, isNotANewDay };

@@ -1,15 +1,12 @@
 import React from 'react';
-import 'Stylesheets/bottom-left.css';
+import 'Stylesheets/settings.css';
 
-export default class BottomLeft extends React.Component {
+export default class Settings extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       settings: 'Settings',
-      wallpaperDesc: 'Wallpaper Description',
-      mainFocus: 'Main Focus',
-
     };
   }
 
@@ -17,7 +14,6 @@ export default class BottomLeft extends React.Component {
     return (
       <div className="bottom-left">
         <div>{this.state.settings}</div>
-        <div>{this.state.wallpaperDesc}</div>
       </div>
     );
   }
