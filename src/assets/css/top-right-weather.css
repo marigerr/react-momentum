@@ -1,0 +1,21 @@
+.top-right-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.top-right-flex > div {
+  margin: 0px 0px;
+}
+
+.tempScale {
+  cursor: pointer;
+}
+
+.tempScale:hover {
+  color: lightgrey;
+}
+
+ .wi {
+  font-size: 18px;
+}  

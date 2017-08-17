@@ -1,0 +1,5 @@
+#quote {
+  text-align: center;
+  flex-grow: 2;
+  flex-basis: 50%;
+}

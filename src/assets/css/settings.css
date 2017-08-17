@@ -1,0 +1,10 @@
+.bottom-left {
+  display: flex;
+}
+
+.bottom-left > div {
+  margin: 0px 10px;
+  /* background-color: rgba(0,0,0,0);
+  outline-color: white;
+  text-shadow: 0 1px rgba(0,0,0,.04) */
+}
