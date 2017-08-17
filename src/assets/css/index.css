@@ -1,11 +1,14 @@
 /* Layout */
+
 html, body, #root {
   height: 100%;
-  margin: 0; 
-  color: white;
+  margin: 0;
 }
 
 main {
+  color: white;
+  /* text-shadow: 0 1px 0 black;  */
+  font-weight: 500;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -32,3 +35,8 @@ main {
   flex-basis: 25%;
 }
 
+/* .bottom-row {
+  height: 100px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, .3) 0, rgba(0, 0, 0, .15) 40%, transparent);
+  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.3) 0px, rgba(0, 0, 0, 0.15) 40%, transparent);
+} */

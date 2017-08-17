@@ -6,15 +6,17 @@ import Center from 'Components/Center.jsx';
 import Settings from 'Components/Settings.jsx';
 import Quote from 'Components/Quote.jsx';
 import ToDoList from 'Components/ToDoList.jsx';
-import { localStorageKeyExists, getFromLocalStorage } from 'Scripts/utilities';
+import { getCurrentTime, isNotANewDay, localStorageKeyExists, getFromLocalStorage } from 'Scripts/utilities';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
 
-    if (localStorageKeyExists('wallpaper')) {
-      const wallpaperData = getFromLocalStorage('wallpaper');
+    const haveDaysPhoto = localStorageKeyExists('wallpaper') && isNotANewDay(localStorage.wallpaperTimestamp, getCurrentTime());
 
+    if (haveDaysPhoto) {
+      const wallpaperData = getFromLocalStorage('wallpaper');
+      console.log(wallpaperData);
       this.state = {
         divStyle: {
           backgroundImage: `url(${wallpaperData.urls.full})`,
@@ -25,19 +27,14 @@ export default class App extends React.Component {
       };
     } else {
       this.state = {
-        divStyle: {
-          backgroundImage: '',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no - repeat',
-          backgroundSize: 'cover',
-        },
+        divStyle: {},
       };
     }
   }
 
-  myCallback(dataFromChild) {
-    console.log('in parent callback', dataFromChild);
-    const imgUrl = dataFromChild.data.urls.full;
+  wallpaperDataCallback(wallpaperData) {
+    console.log('in parent callback', wallpaperData);
+    const imgUrl = wallpaperData.data.urls.full;
 
     this.setState({
       divStyle: {
@@ -50,27 +47,22 @@ export default class App extends React.Component {
   }
 
   render() {
-    if (this.state) {
-      return (
-        <main id="main" style={this.state.divStyle}>
-          <div className="row top-row">
-            <TopLeft/>
-            <Weather/>
-          </div>
-          <Wallpaper callbackFromParent={this.myCallback.bind(this)} />
-          <div className="row middle-row">
-            <Center/>
-          </div>
-          <div className="row bottom-row">
-            <Settings/>
-            <Quote/>
-            <ToDoList/>
-          </div>
-        </main>
-      );
-    }
     return (
-      <div>...Loading</div>
+      <main id="main" style={this.state.divStyle}>
+        <div className="row top-row">
+          <TopLeft/>
+          <Weather/>
+        </div>
+        <Wallpaper transferDataChildtoParent={this.wallpaperDataCallback.bind(this)} />
+        <div className="row middle-row">
+          <Center/>
+        </div>
+        <div className="row bottom-row">
+          <Settings/>
+          <Quote/>
+          <ToDoList/>
+        </div>
+      </main>
     );
   }
 }

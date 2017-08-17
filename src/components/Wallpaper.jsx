@@ -41,7 +41,7 @@ export default class Wallpaper extends React.Component {
 
           addToLocalStorage('wallpaper', result.data);
           addToLocalStorage('wallpaperTimestamp', getCurrentTime());
-          this.props.callbackFromParent(result);
+          this.props.transferDataChildtoParent(result);
           //   // console.log(response.location.hasOwnProperty("country"));
           //   // if (typeof response.location.city != 'undefined' ) {
           //   //   $("#wallpaper-location").text(response.location.city);
