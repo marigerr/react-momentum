@@ -3,3 +3,65 @@
   flex-grow: 2;
   flex-basis: 50%;
 }
+
+.quote-container {
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  width: 500px;
+  align-items: center;
+  text-align: center;
+}
+
+.author-container {
+  display: flex;
+  flex-direction: row;
+  font-size: 15px;
+} 
+
+.author-container > * {
+  margin: 5px 4px;
+}
+
+.icon-quote {
+  width: 15px;
+  height: 15px;
+}
+
+@keyframes heart-beat {
+	0% { 
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.2);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+.expand {
+  animation: heart-beat 0.5s ease;
+}
+
+.quote-container> *:first-child {
+	transform: translateY(0%);
+	transition: all 0.5s ease;
+}
+
+.quote-container:hover > *:first-child {
+	transform: translateY(-50%);
+    transition: all 0.5s ease;
+}
+
+.quote-container> *:last-child {
+	transform: translateY(-75%);
+	opacity: 0;
+	transition: all 0.5s ease;
+}
+
+.quote-container:hover > *:last-child {
+	transform: translateY(-25%);
+	opacity: 1;
+	transition: all 0.5s ease;
+}
