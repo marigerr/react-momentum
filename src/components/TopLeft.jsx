@@ -1,8 +1,9 @@
 import React from 'react';
 import 'Stylesheets/top-left.css';
-import 'Images/chrome-grey.svg';
-import 'Images/search-grey.svg';
-import 'Images/nine-squares-grey.svg';
+import 'Images/settings.svg';
+import 'Images/chrome.svg';
+import 'Images/search.svg';
+import 'Images/nine-squares.svg';
 
 
 export default class TopLeft extends React.Component {
@@ -37,11 +38,14 @@ export default class TopLeft extends React.Component {
   render() {
     return (
       <div className="top-left-flex">
-        <a href="#" id="chrome-tab-link" title="Chrome Tab" onClick={openChromeTab}><img className="icon-top-left" src="./assets/images/chrome-grey.svg" alt="Chrome Tab"/></a>
 
-        <a href="#" id="chrome-apps-link" title="Apps" onClick={openChromeApps}><img className="icon-top-left" src="./assets/images/nine-squares-grey.svg" alt="Chrome Apps"/></a>
+        <a href="#" id="" title="Settings" ><img className="icon-top-left" src="./assets/images/settings.svg" alt="Settings"/></a>
 
-        <a href="#" id="chrome-search-link" onClick={this.showSearchInput.bind(this)} title="Search"><img className="icon-top-left" src="./assets/images/search-grey.svg" alt="Search"/></a>
+        <a href="#" id="chrome-tab-link" title="Chrome Tab" onClick={openChromeTab}><img className="icon-top-left" src="./assets/images/chrome.svg" alt="Chrome Tab"/></a>
+
+        <a href="#" id="chrome-apps-link" title="Apps" onClick={openChromeApps}><img className="icon-top-left" src="./assets/images/nine-squares.svg" alt="Chrome Apps"/></a>
+
+        <a href="#" id="chrome-search-link" onClick={this.showSearchInput.bind(this)} title="Search"><img className="icon-top-left" src="./assets/images/search.svg" alt="Search"/></a>
         {this.state.isHidden && <input type="text" id="chrome-search-input" value={this.state.inputValue} onChange={this.updateInputValue.bind(this)} autoFocus name="search" onKeyPress={this.googleSearch.bind(this)}/>}
       </div>
     );

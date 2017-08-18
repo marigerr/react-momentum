@@ -13,8 +13,8 @@ export default class ToDoList extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>{this.state.todo}</div>
+      <div className="todo-list-container">
+        {this.state.todo}
       </div>
     );
   }

@@ -8,14 +8,17 @@
 }
 
 #chrome-search-input {
+  background: transparent;
   border: none;
-  border-bottom: 2px solid #D3D3D3;
+  border-bottom: 2px solid #FFF;
   width: 250px;
+  caret-color: white;
+  color: white;
 }
 
 #chrome-search-input:focus, #chrome-search-input:active {
   border: none;
-  border-bottom: 2px solid #D3D3D3;
+  border-bottom: 2px solid #FFF;
   outline: none;
 }
 

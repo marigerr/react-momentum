@@ -53,7 +53,7 @@ export default class Wallpaper extends React.Component {
   render() {
     if (this.state) {
       return (
-        <div id="photo-author-location">
+        <div className="wallpaper-info-container">
           <div>{this.state.wallpaperAttribution}</div>
           <div>{this.state.wallpaperLocation}</div>
         </div>
@@ -64,8 +64,3 @@ export default class Wallpaper extends React.Component {
     );
   }
 }
-
-// Wallpaper.propTypes = {
-//   callbackFromParent: PropTypes.func,
-// };
-
