@@ -8,28 +8,37 @@ import LikeHeart from './likeheart.jsx';
 class Quote extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      quote: 'Dream big dreams. Small dreams have no magic.',
-      author: 'Dottie Boreyko',
-    };
+    if (localStorageKeyExists('quote')) {
+      const currentQuote = getFromLocalStorage('quote');
+      this.state = {
+        quote: currentQuote.quote,
+        author: currentQuote.author,
+      };
+    } else {
+      this.state = {
+        quote: 'Dream big dreams. Small dreams have no magic.',
+        author: 'Dottie Boreyko',
+      };
+    }
   }
 
   check60Min() {
     const currentTime = getCurrentTime();
-    const fetchTime = getFromLocalStorage('fetchTime');
-    const timeInterval = currentTime - fetchTime;
+    const quoteTimeStamp = getFromLocalStorage('quoteTimeStamp');
+    const timeInterval = currentTime - quoteTimeStamp;
     console.log(timeInterval);
-    return timeInterval >= 3600000;
+    return timeInterval >= 30000;
   }
 
   componentDidMount() {
-    const URL = 'https:\//random-quote-generator.herokuapp.com/api/quotes/random';
+    const URL = 'https://random-quote-generator.herokuapp.com/api/quotes/random';
     const over60Min = this.check60Min();
     console.log(over60Min);
     if (localStorageKeyExists('quote') && !over60Min) {
+      const currentQuote = getFromLocalStorage('quote');
       this.setState({
-        quote: getFromLocalStorage('quote'),
-        author: getFromLocalStorage('author'),
+        quote: currentQuote.quote,
+        author: currentQuote.author,
       });
     } else {
       axios.get(URL)
@@ -38,9 +47,12 @@ class Quote extends Component {
             quote: response.data.quote,
             author: response.data.author,
           });
-          addToLocalStorage('quote', this.state.quote);
-          addToLocalStorage('author', this.state.author);
-          addToLocalStorage('fetchTime', getCurrentTime());
+          const fetchQuote = {
+            quote: this.state.quote,
+            author: this.state.author,
+          };
+          addToLocalStorage('quote', fetchQuote);
+          addToLocalStorage('quoteTimeStamp', getCurrentTime());
         });
     }
   }
@@ -51,7 +63,10 @@ class Quote extends Component {
         <div>{this.state.quote}</div>
         <div className='author-container'>
           <div>{this.state.author}</div>
-          <LikeHeart />
+          <LikeHeart
+            quote={this.state.quote}
+            author={this.state.author}
+          />
           <TwitterLink
             quote={this.state.quote}
             author={this.state.author}

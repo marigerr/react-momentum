@@ -50,7 +50,7 @@
 }
 
 .quote-container:hover > *:first-child {
-	transform: translateY(-50%);
+	transform: translateY(-25%);
     transition: all 0.5s ease;
 }
 
@@ -61,7 +61,7 @@
 }
 
 .quote-container:hover > *:last-child {
-	transform: translateY(-25%);
+	transform: translateY(-30%);
 	opacity: 1;
 	transition: all 0.5s ease;
 }
