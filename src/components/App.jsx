@@ -5,45 +5,58 @@ import Weather from 'Components/Weather.jsx';
 import Center from 'Components/Center.jsx';
 import Quote from 'Components/random-quote/Quote.jsx';
 import ToDoList from 'Components/ToDoList.jsx';
+import { getUnsplashPhoto } from 'Scripts/apiCalls';
 import 'Stylesheets/index.css';
-import { getCurrentTime, isNotANewDay, localStorageKeyExists, getFromLocalStorage } from 'Scripts/utilities';
+import { getCurrentTime, localStorageKeyExists, addToLocalStorage, getFromLocalStorage, isNotANewDay, objIsInArray } from 'Scripts/utilities';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
 
-    const haveDaysPhoto = localStorageKeyExists('wallpaper') && isNotANewDay(localStorage.wallpaperTimestamp, getCurrentTime());
+    const haveTodaysPhoto = localStorageKeyExists('wallpaper') &&
+      isNotANewDay(localStorage.wallpaperTimestamp, getCurrentTime());
 
-    if (haveDaysPhoto) {
+    if (haveTodaysPhoto) {
       const wallpaperData = getFromLocalStorage('wallpaper');
-      console.log(wallpaperData);
       this.state = {
+        wallpaperData,
         divStyle: {
           backgroundImage: `url(${wallpaperData.urls.full})`,
           backgroundPosition: 'center',
           backgroundRepeat: 'no - repeat',
           backgroundSize: 'cover',
         },
+        haveTodaysPhoto: true,
       };
     } else {
       this.state = {
         divStyle: {},
+        haveTodaysPhoto: false,
       };
     }
   }
 
-  wallpaperDataCallback(wallpaperData) {
-    console.log('in parent callback', wallpaperData);
-    const imgUrl = wallpaperData.data.urls.full;
-
-    this.setState({
-      divStyle: {
-        backgroundImage: `url(${imgUrl})`,
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no - repeat',
-        backgroundSize: 'cover',
-      },
-    });
+  componentDidMount() {
+    if (!this.state.haveTodaysPhoto) {
+      getUnsplashPhoto()
+        .then((result) => {
+          const wallpaperData = result.data;
+          wallpaperData.wallpaperLiked = localStorageKeyExists('wallpaper') &&
+            objIsInArray(getFromLocalStorage('arrLikedWallpapers'), 'id', wallpaperData.id);
+          console.log('wallpaperData.wallpaperLiked', wallpaperData.wallpaperLiked);
+          this.setState({
+            wallpaperData,
+            divStyle: {
+              backgroundImage: `url(${wallpaperData.urls.full})`,
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no - repeat',
+              backgroundSize: 'cover',
+            },
+          });
+          addToLocalStorage('wallpaper', wallpaperData);
+          addToLocalStorage('wallpaperTimestamp', getCurrentTime());
+        });
+    }
   }
 
   render() {
@@ -57,7 +70,16 @@ export default class App extends React.Component {
           <Center/>
         </div>
         <div className="row bottom-row">
-          <Wallpaper transferDataChildtoParent={this.wallpaperDataCallback.bind(this)}/>
+          { this.state.wallpaperData &&
+
+            <Wallpaper
+              location={ this.state.wallpaperData.location }
+              photographer={ this.state.wallpaperData.user }
+              id={this.state.wallpaperData.id}
+              urls={this.state.wallpaperData.urls}
+              wallpaperLiked={this.state.wallpaperData.wallpaperLiked} />
+
+          }
           <Quote/>
           <ToDoList/>
         </div>

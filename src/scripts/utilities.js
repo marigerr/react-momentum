@@ -1,5 +1,3 @@
-// import axios from 'axios';
-
 function getCurrentTime() {
   return new Date().getTime();
 }
@@ -7,8 +5,6 @@ function getCurrentTime() {
 function isNotANewDay(prevTimestamp, currTimestamp) {
   const current = new Date(parseInt(currTimestamp, 10)).setHours(0, 0, 0, 0);
   const previous = new Date(parseInt(prevTimestamp, 10)).setHours(0, 0, 0, 0);
-  // console.log(prevTimestamp, currTimestamp);
-  // console.log(previous, current);
   return current === previous;
 }
 
@@ -18,12 +14,10 @@ function titleCase(str) {
 }
 
 function addToLocalStorage(key, value) {
-  // console.log('adding to local storage');
   localStorage.setItem(key, JSON.stringify(value));
 }
 
 function getFromLocalStorage(key) {
-  // console.log('get from Local Storage');
   return JSON.parse(localStorage.getItem(key));
 }
 
@@ -31,37 +25,51 @@ function localStorageKeyExists(key) {
   return localStorage.getItem(key) !== null;
 }
 
-// function getUserLocation() {
-//   return axios.get('https://ipinfo.io/geo')
-//     .then((response) => {
-//       const latlon = response.data.loc.split(',');
-//       const userLocation = response.data;
-//       userLocation.lat = latlon[0];
-//       userLocation.lon = latlon[1];
-//       addToLocalStorage('userLocation', userLocation);
-//       addToLocalStorage('userLocationTimestamp', getCurrentTime());
-//     });
-// }
+// updates 1 property of an object stored in local storage 
+function updateLocalStorageObjProp(localStorageKey, propertyToUpdate, newValue) {
+  const objectNeedingUpdate = getFromLocalStorage(localStorageKey);
+  objectNeedingUpdate[propertyToUpdate] = newValue;
+  addToLocalStorage(localStorageKey, objectNeedingUpdate);
+}
 
+// add an object to an existing local storage array or creates new one
+function addToLocalStorageArray(localStorageKey, objectToAdd) {
+  if (localStorageKeyExists(localStorageKey)) {
+    const storageArray = getFromLocalStorage(localStorageKey);
+    storageArray.push(objectToAdd);
+    addToLocalStorage(localStorageKey, storageArray);
+  } else {
+    addToLocalStorage(localStorageKey, [objectToAdd]);
+  }
+}
 
-// Need to fix fallback HTML5 if ipinfo fails
+/* 
+  removeFromLocalStorageArray() - removes an object from a local storage object array. 
+  Parameters :
+    - localStorageKey = name of local storage array
+    - idProp = name of object property that is used to identify the object to remove
+    - idToRemove = value of object property for object that should be removed
+*/
+function removeFromLocalStorageArray(localStorageKey, idProp, idToRemove) {
+  const storageArray = getFromLocalStorage(localStorageKey);
+  const updatedArray = storageArray.filter(item =>
+    item[idProp] !== idToRemove,
+  );
+  console.log(updatedArray);
+  addToLocalStorage(localStorageKey, updatedArray);
+}
 
-// function getHtml5Location() {
-//   return Promise.resolve(
-//     navigator.geolocation.getCurrentPosition(function (position) {
-//       localStorage.setItem('userLat', position.coords.latitude);
-//       localStorage.setItem('userLon', position.coords.longitude);
-//       localStorage.setItem('userLocationTimestamp', new Date().getTime());
-//       // remove old userCity and userCountry from localstorage
-//       // they will be retrieved using weather api
-//       localStorage.removeItem('userCity');  
-//       localStorage.removeItem('userCountry');
-//     })
-//   )
-//   if (navigator.geolocation) {
-//   } else {
-//     console.log("Geolocation is not supported by this browser.");
-//   }
-// };
+/* 
+  objIsInArray() - checks if object is in array. 
+  Parameters: 
+  - array 
+  - idProp = name of property that is used to identify the object to find
+  - id = value of id for objec to find
+*/
+function objIsInArray(array, idProp, id) {
+  const result = array.some(obj => obj[idProp] === id);
+  console.log(result);
+  return result;
+}
 
-export { titleCase, getCurrentTime, addToLocalStorage, getFromLocalStorage, localStorageKeyExists, isNotANewDay };
+export { titleCase, getCurrentTime, addToLocalStorage, getFromLocalStorage, localStorageKeyExists, updateLocalStorageObjProp, isNotANewDay, addToLocalStorageArray, removeFromLocalStorageArray, objIsInArray };

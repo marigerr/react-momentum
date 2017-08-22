@@ -1,0 +1,30 @@
+.photographer-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.photographer-container > * {
+  margin-right: 5px;
+}
+
+.wallpaper-info-container > *:first-child {
+  transform: translateY(50%);
+  transition: all 0.5s ease;
+}
+
+.wallpaper-info-container:hover > *:first-child {
+  transform: translateY(10%);
+  transition: all 0.5s ease;
+}
+
+.wallpaper-info-container > *:last-child {
+  transform: translateY(0%);
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.wallpaper-info-container:hover > *:last-child {
+  transform: translateY(40%);
+  opacity: 1;
+  transition: all 0.5s ease;
+}
