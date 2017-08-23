@@ -1,0 +1,16 @@
+.show-option-list {
+  padding: 0px;
+  margin: 0px;
+}
+
+.show-option {
+  display: block;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.075); 
+  margin-bottom: 5px;
+}
+
+.show-option span {
+  font-size: 14px;
+}

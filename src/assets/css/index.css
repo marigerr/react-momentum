@@ -26,6 +26,14 @@ main {
   align-items: center;
 }
 
+ .top-row {
+  height: 40px;
+} 
+
+.bottom-row {
+  height: 75px;
+} 
+
 .middle-row {
   justify-content: center;
   align-items: center;

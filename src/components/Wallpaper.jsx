@@ -36,7 +36,6 @@ export default class WallpaperInfo extends React.Component {
           const wallpaperData = result.data;
           wallpaperData.wallpaperLiked = localStorageKeyExists('wallpaper') &&
             objIsInArray(getFromLocalStorage('arrLikedWallpapers'), 'id', wallpaperData.id);
-          console.log('wallpaperData.wallpaperLiked', wallpaperData.wallpaperLiked);
           this.setState({
             wallpaperData,
             divStyle: {
