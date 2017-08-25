@@ -13,6 +13,14 @@ function titleCase(str) {
   return str.toLowerCase().split(' ').map(word => word.replace(word[0], word[0].toUpperCase())).join(' ');
 }
 
+function initializeLocalStorage() {
+  addToLocalStorage('localStorageInitialized', true);
+  addToLocalStorage('arrLikedWallpapers', []);
+  addToLocalStorage('wallpaper', {});
+  addToLocalStorage('wallpaperTimestamp', 0);
+  addToLocalStorage('weatherTimestamp', 0);
+}
+
 function addToLocalStorage(key, value) {
   localStorage.setItem(key, JSON.stringify(value));
 }
@@ -72,4 +80,4 @@ function objIsInArray(array, idProp, id) {
   return result;
 }
 
-export { titleCase, getCurrentTime, addToLocalStorage, getFromLocalStorage, localStorageKeyExists, updateLocalStorageObjProp, isNotANewDay, addToLocalStorageArray, removeFromLocalStorageArray, objIsInArray };
+export { titleCase, getCurrentTime, initializeLocalStorage, addToLocalStorage, getFromLocalStorage, localStorageKeyExists, updateLocalStorageObjProp, isNotANewDay, addToLocalStorageArray, removeFromLocalStorageArray, objIsInArray };

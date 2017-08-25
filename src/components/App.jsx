@@ -7,14 +7,17 @@ import Quote from 'Components/random-quote/Quote.jsx';
 import ToDoList from 'Components/ToDoList.jsx';
 import { getUnsplashPhoto } from 'Scripts/apiCalls';
 import 'Stylesheets/index.css';
-import { getCurrentTime, localStorageKeyExists, addToLocalStorage, getFromLocalStorage, isNotANewDay, objIsInArray } from 'Scripts/utilities';
+import { getCurrentTime, initializeLocalStorage, localStorageKeyExists, addToLocalStorage, getFromLocalStorage, isNotANewDay, objIsInArray } from 'Scripts/utilities';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
 
-    const haveTodaysPhoto = localStorageKeyExists('wallpaper') &&
-      isNotANewDay(localStorage.wallpaperTimestamp, getCurrentTime());
+    if (!localStorageKeyExists('localStorageInitialized')) {
+      initializeLocalStorage();
+    }
+
+    const haveTodaysPhoto = isNotANewDay(localStorage.wallpaperTimestamp, getCurrentTime());
 
     if (haveTodaysPhoto) {
       const wallpaperData = getFromLocalStorage('wallpaper');
