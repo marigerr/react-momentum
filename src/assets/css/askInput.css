@@ -1,0 +1,39 @@
+.askName-label {
+  font-size: 75px;
+  text-align: center;
+}
+
+.askName-input {
+  width: 90%;
+  margin: 0% 5%;
+  outline: none;
+  border: none;
+  height: 40px;
+  color: #FFF;
+  font-weight: 400;
+  font-size: 30px;
+  text-align: center;
+  border-bottom: 3px solid #FFF;
+  background: transparent;
+}
+
+.askToDo-label {
+  margin-top: 30px;
+  padding-top: 15px;
+  font-size: 35px;
+  text-align: center;
+}
+
+.askToDo-input {
+  width: 80%;
+  margin: 0% 10%;
+  outline: none;
+  border: none;
+  height: 30px;
+  color: #FFF;
+  font-weight: 400;
+  font-size: 25px;
+  text-align: center;
+  border-bottom: 3px solid #FFF;
+  background: transparent;
+}

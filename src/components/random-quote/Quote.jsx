@@ -27,7 +27,7 @@ class Quote extends Component {
     const quoteTimeStamp = getFromLocalStorage('quoteTimeStamp');
     const timeInterval = currentTime - quoteTimeStamp;
     console.log(timeInterval);
-    return timeInterval >= 30000;
+    return timeInterval >= 3600000;
   }
 
   componentDidMount() {

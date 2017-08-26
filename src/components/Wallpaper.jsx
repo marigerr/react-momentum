@@ -9,10 +9,6 @@ export default class Wallpaper extends React.Component {
     this.state = this.props;
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState = { nextProps };
-  }
-
   toggleLike(likeStatus) {
     updateLocalStorageObjProp('wallpaper', 'wallpaperLiked', likeStatus);
     this.setState({ wallpaperLiked: likeStatus }, () => {

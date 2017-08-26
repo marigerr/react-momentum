@@ -1,3 +1,97 @@
+#center {
+  height: 455px;
+}
+
 #center > div {
   text-align: center;
+}
+
+.time {
+  font-size: 175px;
+}
+
+.greeting {
+  font-size: 60px;
+}
+
+.focusToDo-main-container {
+  height: 135px;
+}
+
+.container-center-todo {
+  margin-top: 10px;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.congrats-container {
+  height: 25px;
+  font-size: 15px;
+  margin: 5px 4px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes exit-congrat {
+  0% {
+  	opacity: 1;
+  }
+  77% {
+  	opacity: 1;
+  }
+  100% {
+  	opacity: 0;
+  }
+}
+
+.congrats-container > *:last-child {
+  margin: 4px 10px;
+  opacity: 0;
+  animation: exit-congrat 4s ease;
+}
+
+@keyframes ping-effect {
+  0% { 
+    transform: scale(1);
+  }
+  15% {
+  	opacity: 1;
+  }
+  30% {
+	transform: scale(4);
+	opacity: 0;
+  }
+  31% { 
+    transform: scale(1);
+  }
+  46% {
+  	opacity: 1;
+  }
+  61% {
+	transform: scale(4);
+	opacity: 0;
+  }
+  62% { 
+    transform: scale(1);
+  }
+  77% {
+  	opacity: 1;
+  }
+  100% {
+	transform: scale(4);
+	opacity: 0;
+  }
+}
+
+.ping-animation {
+  border-radius: 50%;
+  color: #FFF;
+  margin: 5px 4px;
+  height: 3px;
+  width: 3px;
+  opacity: 0;
+  border: 0.1px solid #FFF;
+  animation: ping-effect 4s ease;
 }

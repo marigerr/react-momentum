@@ -26,6 +26,7 @@
 .icon-quote {
   width: 15px;
   height: 15px;
+  cursor: pointer;
 }
 
 @keyframes heart-beat {
