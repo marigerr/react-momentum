@@ -1,38 +1,62 @@
 import React from 'react';
-import { updateLocalStorageObjProp, addToLocalStorageArray, removeFromLocalStorageArray, titleCase } from 'Scripts/utilities';
-import LikeheartReusable from 'Components/LikeheartReusable.jsx';
-import 'Stylesheets/wallpaper-info.css';
+import { getCurrentTime, localStorageKeyExists, addToLocalStorage, getFromLocalStorage, isNotANewDay, objIsInArray } from 'Scripts/utilities';
+import { getUnsplashPhoto } from 'Scripts/apiCalls';
+import 'Stylesheets/wallpaper.css';
 
-export default class Wallpaper extends React.Component {
+export default class WallpaperInfo extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props;
+    const haveTodaysPhoto = isNotANewDay(localStorage.wallpaperTimestamp, getCurrentTime());
+
+    if (haveTodaysPhoto) {
+      const wallpaperData = getFromLocalStorage('wallpaper');
+      this.state = {
+        wallpaperData,
+        divStyle: {
+          backgroundImage: `url(${wallpaperData.urls.full})`,
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no - repeat',
+          backgroundSize: 'cover',
+        },
+        haveTodaysPhoto: true,
+      };
+    } else {
+      this.state = {
+        divStyle: {},
+        haveTodaysPhoto: false,
+      };
+    }
   }
 
-  toggleLike(likeStatus) {
-    updateLocalStorageObjProp('wallpaper', 'wallpaperLiked', likeStatus);
-    this.setState({ wallpaperLiked: likeStatus }, () => {
-      if (likeStatus) {
-        addToLocalStorageArray('arrLikedWallpapers', this.state);
-      } else {
-        removeFromLocalStorageArray('arrLikedWallpapers', 'id', this.state.id);
-      }
-    });
+  componentDidMount() {
+    this.props.updateWallpaperInfo(this.state.wallpaperData);
+    if (!this.state.haveTodaysPhoto) {
+      getUnsplashPhoto()
+        .then((result) => {
+          const wallpaperData = result.data;
+          wallpaperData.wallpaperLiked = localStorageKeyExists('wallpaper') &&
+            objIsInArray(getFromLocalStorage('arrLikedWallpapers'), 'id', wallpaperData.id);
+          console.log('wallpaperData.wallpaperLiked', wallpaperData.wallpaperLiked);
+          this.setState({
+            wallpaperData,
+            divStyle: {
+              backgroundImage: `url(${wallpaperData.urls.full})`,
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no - repeat',
+              backgroundSize: 'cover',
+            },
+          });
+          addToLocalStorage('wallpaper', wallpaperData);
+          addToLocalStorage('wallpaperTimestamp', getCurrentTime());
+          this.props.updateWallpaperInfo(wallpaperData);
+        });
+    }
   }
+
 
   render() {
-    const photographer = titleCase(`By: ${this.state.photographer.first_name} ${this.state.photographer.last_name}`);
-    const location = titleCase(`${this.state.location.title}`);
-
     return (
-      <div className="wallpaper-info-container">
-        <div>{location}</div>
-        <div className="photographer-container">
-          <div>{photographer}</div>
-          <LikeheartReusable
-            toggleLike={this.toggleLike.bind(this)}
-            liked={this.state.wallpaperLiked} />
-        </div>
+      <div className="wallpaper-container" style={this.state.divStyle}>
       </div>
     );
   }
