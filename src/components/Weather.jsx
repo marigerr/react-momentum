@@ -25,13 +25,11 @@ export default class Weather extends React.Component {
   }
 
   componentDidMount() {
-    // console.log(this.state);
     const currentTime = getCurrentTime();
     const weatherIsCurrent = this.state && currentTime - localStorage.weatherTimestamp < 600000;
     if (!weatherIsCurrent) {
       axios.get('https://ipinfo.io/geo')
         .then((response) => {
-          console.log('fetched ipinfo', response);
           const latlon = response.data.loc.split(',');
           const userLocation = response.data;
           userLocation.lat = latlon[0];

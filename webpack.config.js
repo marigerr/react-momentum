@@ -23,18 +23,18 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           'babel-loader',
-          'eslint-loader',
+          // 'eslint-loader',
         ],
       },
       // uncomment block below to fix linting errors automatically,
       // then comment out 'es-lint-loader' in above code block
 
-      // {
-      //   test: /\.(js|jsx)$/,
-      //   exclude: /node_modules/,
-      //   loader: 'eslint-loader',
-      //   options: { fix : true }
-      // },
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: { fix : true }
+      },
       
       {
         test: /\.css$/,
@@ -67,6 +67,7 @@ module.exports = {
       Src: path.resolve(__dirname, './src/'),
       Scripts: path.resolve(__dirname, './src/scripts/'),
       Components: path.resolve(__dirname, './src/components'),
+      Settings: path.resolve(__dirname, './src/components/settings'),
       Events: path.resolve(__dirname, './src/scripts/events'),
       Stylesheets: path.resolve(__dirname, './src/assets/css/'),
       Images: path.resolve(__dirname, './src/assets/images/'),

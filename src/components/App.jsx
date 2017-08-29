@@ -1,4 +1,6 @@
 import React from 'react';
+import SettingsIcon from 'Settings/SettingsIcon.jsx';
+import SettingsModal from 'Settings/SettingsModal.jsx';
 import TopLeft from 'Components/TopLeft.jsx';
 import Wallpaper from 'Components/Wallpaper.jsx';
 import WallpaperInfo from 'Components/WallpaperInfo.jsx';
@@ -18,6 +20,8 @@ export default class App extends React.Component {
     }
     const savedUsername = localStorageKeyExists('username');
     const username = getFromLocalStorage('username');
+    const userSettings = getFromLocalStorage('userSettings');
+
     this.state = {
       usernameStatus: {
         username: savedUsername === true ? username : '',
@@ -28,6 +32,7 @@ export default class App extends React.Component {
         label: 'askName-label',
         input: 'askName-input',
       },
+      showFeatures: userSettings.showFeatures,
     };
   }
 
@@ -53,10 +58,26 @@ export default class App extends React.Component {
     });
   }
 
+  toggleSettingsModal() {
+    this.setState({
+      showSettingsModal: !this.state.showSettingsModal,
+    });
+  }
+
+  toggleFeature(e) {
+    const feature = e.target.id;
+    const userSettings = getFromLocalStorage('userSettings');
+    userSettings.showFeatures[feature] = !this.state.showFeatures[feature];
+    addToLocalStorage('userSettings', userSettings);
+    this.setState({
+      showFeatures: userSettings.showFeatures,
+    });
+  }
+
   updateWallpaperInfo(wallpaperData) {
     this.setState({
       wallpaperData,
-    }, () => { console.log(this.state); });
+    });
   }
 
   render() {
@@ -64,18 +85,33 @@ export default class App extends React.Component {
       return (
         <main id="main">
           <Wallpaper updateWallpaperInfo={this.updateWallpaperInfo.bind(this)} />
+          {this.state.showSettingsModal &&
+            <SettingsModal
+              closeModal={this.toggleSettingsModal.bind(this)}
+              toggleFeature={e => this.toggleFeature(e)}
+              showFeatures={this.state.showFeatures}
+            />
+          }
           <div className="row top-row">
-            <TopLeft />
-            <Weather />
+            <div className="top-left-flex">
+              <SettingsIcon toggleSettingsModal={this.toggleSettingsModal.bind(this)} />
+              <TopLeft
+                showFeatures={this.state.showFeatures}
+              />
+            </div>
+            {this.state.showFeatures.showWeather && <Weather />}
           </div>
           <div className="row middle-row">
-            <Center />
+            <Center showFocus={this.state.showFeatures.showFocus} />
           </div>
           <div className="row bottom-row">
+
             {this.state.wallpaperData &&
               <WallpaperInfo wallpaperData={this.state.wallpaperData} /> }
-            <Quote />
-            <ToDoList />
+            {this.state.showFeatures.showQuote && <Quote />}
+            <div className="todo-list-container">
+              {this.state.showFeatures.showTodo && <ToDoList />}
+            </div>
           </div>
         </main>
       );

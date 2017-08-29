@@ -8,6 +8,7 @@ export default class Center extends Component {
     super(props);
     this.state = {
       time: this.currentMinSecs(),
+      showFocus: this.props.showFocus,
     };
   }
 
@@ -35,6 +36,12 @@ export default class Center extends Component {
     setInterval(this.updateTime.bind(this), 1000);
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      showFocus: nextProps.showFocus,
+    });
+  }
+
   render() {
     return (
       <div id="center">
@@ -42,7 +49,7 @@ export default class Center extends Component {
         <Greeting
           time={this.state.time}
         />
-        <FocusToDo />
+        {this.state.showFocus && <FocusToDo />}
       </div>
     );
   }

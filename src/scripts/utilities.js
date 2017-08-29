@@ -19,6 +19,17 @@ function initializeLocalStorage() {
   addToLocalStorage('wallpaper', {});
   addToLocalStorage('wallpaperTimestamp', 0);
   addToLocalStorage('weatherTimestamp', 0);
+  addToLocalStorage('userSettings',
+    { showFeatures: {
+      showChromeTab: true,
+      showSearch: true,
+      showWeather: true,
+      showFocus: true,
+      showQuote: true,
+      showTodo: true,
+      showApps: true,
+    },
+    });
 }
 
 function addToLocalStorage(key, value) {
@@ -63,7 +74,6 @@ function removeFromLocalStorageArray(localStorageKey, idProp, idToRemove) {
   const updatedArray = storageArray.filter(item =>
     item[idProp] !== idToRemove,
   );
-  console.log(updatedArray);
   addToLocalStorage(localStorageKey, updatedArray);
 }
 
@@ -76,7 +86,6 @@ function removeFromLocalStorageArray(localStorageKey, idProp, idToRemove) {
 */
 function objIsInArray(array, idProp, id) {
   const result = array.some(obj => obj[idProp] === id);
-  console.log(result);
   return result;
 }
 
