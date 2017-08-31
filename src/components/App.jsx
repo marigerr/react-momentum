@@ -7,7 +7,7 @@ import WallpaperInfo from 'Components/WallpaperInfo.jsx';
 import Weather from 'Components/Weather.jsx';
 import Center from 'Components/center/Center.jsx';
 import Quote from 'Components/random-quote/Quote.jsx';
-import ToDoList from 'Components/ToDoList.jsx';
+import ToDoList from 'Components/toDo/ToDoList.jsx';
 import AskInput from 'Components/askInput.jsx';
 import 'Stylesheets/index.css';
 import { initializeLocalStorage, localStorageKeyExists, addToLocalStorage, getFromLocalStorage } from 'Scripts/utilities';
@@ -43,8 +43,7 @@ export default class App extends React.Component {
         usernameStatus: {
           existName: true,
         },
-      }, () => console.log(this.state));
-      console.log('saved');
+      });
     }
   }
 

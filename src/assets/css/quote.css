@@ -8,9 +8,10 @@
   display: flex;
   flex-direction: column;
   font-size: 20px;
-  width: 500px;
+  width: 700px;
   align-items: center;
   text-align: center;
+  margin-top: -15px;
 }
 
 .author-container {

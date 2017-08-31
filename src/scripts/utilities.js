@@ -53,13 +53,14 @@ function updateLocalStorageObjProp(localStorageKey, propertyToUpdate, newValue) 
 
 // add an object to an existing local storage array or creates new one
 function addToLocalStorageArray(localStorageKey, objectToAdd) {
+  const storageArray = getFromLocalStorage(localStorageKey);
   if (localStorageKeyExists(localStorageKey)) {
-    const storageArray = getFromLocalStorage(localStorageKey);
     storageArray.push(objectToAdd);
     addToLocalStorage(localStorageKey, storageArray);
   } else {
     addToLocalStorage(localStorageKey, [objectToAdd]);
   }
+  return storageArray || [objectToAdd];
 }
 
 /* 
@@ -75,6 +76,7 @@ function removeFromLocalStorageArray(localStorageKey, idProp, idToRemove) {
     item[idProp] !== idToRemove,
   );
   addToLocalStorage(localStorageKey, updatedArray);
+  return updatedArray;
 }
 
 /* 

@@ -42,10 +42,8 @@ class LikeHeart extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.quoteInLikeArr(nextProps.quote, this.state.arrLikedQuotes)) {
       this.setState({ likedQuote: true });
-      console.log('previously liked');
     } else {
       this.setState({ likedQuote: false });
-      console.log('not-liked');
     }
   }
 

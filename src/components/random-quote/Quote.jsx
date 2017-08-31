@@ -26,14 +26,12 @@ class Quote extends Component {
     const currentTime = getCurrentTime();
     const quoteTimeStamp = getFromLocalStorage('quoteTimeStamp');
     const timeInterval = currentTime - quoteTimeStamp;
-    console.log(timeInterval);
     return timeInterval >= 3600000;
   }
 
   componentDidMount() {
     const URL = 'https://random-quote-generator.herokuapp.com/api/quotes/random';
     const over60Min = this.check60Min();
-    console.log(over60Min);
     if (localStorageKeyExists('quote') && !over60Min) {
       const currentQuote = getFromLocalStorage('quote');
       this.setState({

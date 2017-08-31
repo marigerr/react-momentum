@@ -37,3 +37,15 @@
   border-bottom: 3px solid #FFF;
   background: transparent;
 }
+
+.todo-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #FFF;
+  width: 90%;
+  height: 30px;
+  font-size: 15px;
+  margin-left: 5%;
+  margin-right: 5%;
+}

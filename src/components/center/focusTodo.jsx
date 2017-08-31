@@ -5,6 +5,8 @@ import AskInput from 'Components/askInput.jsx';
 import ListToDoItem from 'Components/listToDoItem.jsx';
 import 'Images/001-check-box-empty.svg';
 import 'Images/002-check.svg';
+import 'Images/001-plus-black-symbol.svg';
+import 'Images/002-remove-symbol.svg';
 
 class FocusToDo extends Component {
   constructor(props) {
@@ -26,6 +28,7 @@ class FocusToDo extends Component {
       toDoStyle: {
         label: 'askToDo-label',
         input: 'askToDo-input',
+        container: 'toDoItem-container',
         toDoCross: toDoDone === true ? 'toDoCross' : '',
       },
     };
@@ -41,7 +44,6 @@ class FocusToDo extends Component {
           toDoExists: true,
         },
       });
-      console.log('saved');
     }
   }
 
@@ -66,9 +68,9 @@ class FocusToDo extends Component {
   // Decide which delete button type according to todo completion
   showDeleteButton() {
     if (this.state.focusToDo.toDoDone) {
-      return <div className="deleteButton"><span className="plus-sign">+</span></div>;
+      return <div className="deleteButton"><img className="plus-sign" src='../assets/images/001-plus-black-symbol.svg'/></div>;
     }
-    return <div className="deleteButton"><span className="letterX">x</span></div>;
+    return <div className="deleteButton"><img className="letterX" src='../assets/images/002-remove-symbol.svg'/></div>;
   }
 
   // update state when checking or unchecking the checkbox for todo completion
@@ -82,6 +84,7 @@ class FocusToDo extends Component {
           toDo: getFromLocalStorage('toDo'),
         },
         toDoStyle: {
+          container: 'toDoItem-container',
           toDoCross: '',
         },
       }, () => {
@@ -96,6 +99,7 @@ class FocusToDo extends Component {
           clickDone: true,
         },
         toDoStyle: {
+          container: 'toDoItem-container',
           toDoCross: 'toDoCross',
         },
       }, () => {
@@ -116,6 +120,7 @@ class FocusToDo extends Component {
       toDoStyle: {
         label: 'askToDo-label',
         input: 'askToDo-input',
+        container: 'toDoItem-container',
       },
     });
     localStorage.removeItem('toDo');
@@ -153,6 +158,7 @@ class FocusToDo extends Component {
         <div className="container-center-todo">TODAY</div>
         <ListToDoItem
           toDoStyle={this.state.toDoStyle.toDoCross}
+          containerStyle={this.state.toDoStyle.container}
           deleteButtonStyle={() => this.showDeleteButton()}
           toDo={this.state.focusToDo.toDo}
           checkboxType={() => this.showCheckbox()}

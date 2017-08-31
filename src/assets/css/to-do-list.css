@@ -1,4 +1,67 @@
 .todo-list-container {
   display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   justify-content: flex-end;  
+}
+
+.todo-modal {
+  position: fixed;
+  z-index: 100;
+  right: 0;
+  bottom: 0;
+  width: 300px;
+  overflow: auto;
+  background-color: rgba(15, 15, 15, 0.925);
+  margin-bottom: 75px;
+  margin-right: 20px;
+  border: 1px solid #888;
+}
+
+.todoList-status {
+  color: #D3D3D3;
+  width: 90%;
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  vertical-align: middle;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.todoList-container {
+  max-height: 430px;
+  overflow-y: auto;
+}
+
+.todo-icon {
+  cursor: pointer;
+}
+
+.no-todo-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 5%;
+  width: 90%;
+  height: 120px;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.smile {
+  height: 45px;
+  width: 45px;
+  margin-bottom: 10px;
+}
+
+.no-todo-container div:nth-child(2) {
+  font-size: 15px;
+}
+
+.no-todo-container div:nth-child(3) {
+  font-size: 13px;
+  font-weight: normal;
+  color: #D3D3D3;
+  margin-top: 5px;
 }

@@ -3,6 +3,7 @@
 html, body, #root {
   height: 100%;
   margin: 0;
+  font-size: 15px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
@@ -26,9 +27,9 @@ main {
   align-items: center;
 }
 
- .top-row {
+.top-row {
   height: 40px;
-} 
+}
 
 .bottom-row {
   height: 75px;
