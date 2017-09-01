@@ -33,6 +33,7 @@ export default class App extends React.Component {
         input: 'askName-input',
       },
       showFeatures: userSettings.showFeatures,
+      options: userSettings.options,
     };
   }
 
@@ -73,6 +74,16 @@ export default class App extends React.Component {
     });
   }
 
+  changeOption(e) {
+    const optionArr = e.target.id.split('-');
+    const userSettings = getFromLocalStorage('userSettings');
+    userSettings.options[optionArr[0]] = optionArr[1];
+    addToLocalStorage('userSettings', userSettings);
+    this.setState({
+      options: userSettings.options,
+    });
+  }
+
   updateWallpaperInfo(wallpaperData) {
     this.setState({
       wallpaperData,
@@ -89,19 +100,24 @@ export default class App extends React.Component {
               closeModal={this.toggleSettingsModal.bind(this)}
               toggleFeature={e => this.toggleFeature(e)}
               showFeatures={this.state.showFeatures}
+              options={this.state.options}
+              changeOption={e => this.changeOption(e)}
             />
           }
           <div className="row top-row">
             <div className="top-left-flex">
               <SettingsIcon toggleSettingsModal={this.toggleSettingsModal.bind(this)} />
-              <TopLeft
-                showFeatures={this.state.showFeatures}
-              />
+              <TopLeft showFeatures={this.state.showFeatures} />
             </div>
-            {this.state.showFeatures.showWeather && <Weather />}
+            <Weather
+              showWeather={this.state.showFeatures.showWeather}
+              tempScale={this.state.options.tempScale}
+            />
           </div>
           <div className="row middle-row">
-            <Center showFocus={this.state.showFeatures.showFocus} />
+            <Center
+              showFocus={this.state.showFeatures.showFocus}
+              clockFormat={this.state.options.clockFormat} />
           </div>
           <div className="row bottom-row">
 

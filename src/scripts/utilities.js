@@ -19,8 +19,8 @@ function initializeLocalStorage() {
   addToLocalStorage('wallpaper', {});
   addToLocalStorage('wallpaperTimestamp', 0);
   addToLocalStorage('weatherTimestamp', 0);
-  addToLocalStorage('userSettings',
-    { showFeatures: {
+  addToLocalStorage('userSettings', {
+    showFeatures: {
       showChromeTab: true,
       showSearch: true,
       showWeather: true,
@@ -29,7 +29,11 @@ function initializeLocalStorage() {
       showTodo: true,
       showApps: true,
     },
-    });
+    options: {
+      tempScale: 'C',
+      clockFormat: '24hour',
+    },
+  });
 }
 
 function addToLocalStorage(key, value) {

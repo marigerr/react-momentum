@@ -10,6 +10,11 @@
   font-size: 175px;
 }
 
+.ampm {
+  font-size: 30px;
+  text-transform: uppercase;
+}
+
 .greeting {
   font-size: 60px;
 }

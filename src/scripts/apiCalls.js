@@ -9,10 +9,13 @@ function getUnsplashPhoto() {
   return axios.get(urlString);
 }
 
-/*
- I plan to move my other api calls here in another PR
- */
-function getWeather() {
+function getWeather(userLat, userLon, tempScale) {
+  const api = 'https://hickory-office.glitch.me/api.weather?';
+  const lat = `lat=${userLat}`;
+  const lon = `lon=${userLon}`;
+  const units = `units=${tempScale === 'C' ? 'metric' : 'imperial'}`;
+  const urlString = [api, lat, '&', lon, '&', units].join('');
+  return axios.get(urlString);
 }
 
 function getIpInfoLocation() {

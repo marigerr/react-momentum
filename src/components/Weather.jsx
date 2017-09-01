@@ -4,6 +4,7 @@ import 'Stylesheets/weather-icons.min.css';
 import 'Stylesheets/top-right-weather.css';
 import weatherIcons from 'Json/icons.json';
 import { titleCase, getCurrentTime, localStorageKeyExists, addToLocalStorage, getFromLocalStorage } from 'Scripts/utilities';
+import { getWeather } from 'Scripts/apiCalls';
 
 export default class Weather extends React.Component {
   constructor(props) {
@@ -17,7 +18,7 @@ export default class Weather extends React.Component {
         userLat: userLocation.lat,
         userLon: userLocation.lon,
         currentTemp: `${Math.round(weatherData.main.temp)} ${String.fromCharCode(176)}`,
-        tempScale: 'C',
+        tempScale: this.props.tempScale,
         currentWeatherIconClass: pickIcon(weatherData.weather[0].id, weatherData.weather[0].icon),
         weatherDesc: titleCase(weatherData.weather[0].description),
       };
@@ -37,47 +38,66 @@ export default class Weather extends React.Component {
           addToLocalStorage('userLocation', userLocation);
           addToLocalStorage('userLocationTimestamp', getCurrentTime());
           this.setState({
-            userCity: response.data.city,
-            userLat: response.data.lat,
-            userLon: response.data.lon,
+            userCity: userLocation.city,
+            userLat: userLocation.lat,
+            userLon: userLocation.lon,
           });
         })
         .then(() => {
-          const api = 'https://hickory-office.glitch.me/api.weather?';
-          const lat = `lat=${this.state.userLat}`;
-          const lon = `lon=${this.state.userLon}`;
-          const urlString = [api, lat, '&', lon].join('');
-
-          axios.get(urlString)
+          getWeather(this.state.userLat, this.state.userLon, this.props.tempScale)
             .then((result) => {
               addToLocalStorage('weather', result.data);
               addToLocalStorage('weatherTimestamp', getCurrentTime());
-              // this.setState({ userCity: result.data.name });
-              this.setState({ currentTemp: `${Math.round(result.data.main.temp)} ${String.fromCharCode(176)}` });
-              this.setState({ tempScale: 'C' });
-              this.setState({ weatherDesc: titleCase(result.data.weather[0].description) });
-              this.setState({ currentWeatherIconClass: pickIcon(result.data.weather[0].id, result.data.weather[0].icon) });
+              this.setState({
+                currentTemp: `${Math.round(result.data.main.temp)} ${String.fromCharCode(176)}`,
+                weatherDesc: titleCase(result.data.weather[0].description),
+                currentWeatherIconClass: pickIcon(result.data.weather[0].id, result.data.weather[0].icon),
+                tempScale: this.props.tempScale,
+                // userCity: result.data.name,
+              });
             });
         });
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    const newTempScale = nextProps.tempScale;
+    if (newTempScale !== this.state.tempScale) {
+      this.setState({
+        tempScale: newTempScale,
+      });
+      this.convertTemp(newTempScale);
+    }
+  }
+
   changeTempScale() {
-    let newTemp;
+    const currentTempScale = this.state.tempScale;
+    const newTempScale = currentTempScale === 'C' ? 'F' : 'C';
+    this.setState({ tempScale: newTempScale });
+    this.convertTemp(newTempScale);
+    const userSettings = getFromLocalStorage('userSettings');
+    userSettings.options.tempScale = newTempScale;
+    addToLocalStorage('userSettings', userSettings);
+  }
+
+  convertTemp(newTempScale) {
     const currentTemp = parseInt(this.state.currentTemp, 10);
-    const currentTempUnit = this.state.tempScale;
-    const newTempUnit = currentTempUnit === 'C' ? 'F' : 'C';
-    if (newTempUnit === 'F') {
+    let newTemp;
+    if (newTempScale === 'F') {
       newTemp = Math.round((currentTemp * 9 / 5) + 32);
     } else {
       newTemp = Math.round((currentTemp - 32) * 5 / 9);
     }
     this.setState({ currentTemp: `${newTemp} ${String.fromCharCode(176)}` });
-    this.setState({ tempScale: newTempUnit });
+    const weather = getFromLocalStorage('weather');
+    weather.main.temp = newTemp;
+    delete weather.main.temp_min;
+    delete weather.main.temp_max;
+    addToLocalStorage('weather', weather);
   }
 
   render() {
-    if (this.state) {
+    if (this.props.showWeather && this.state && this.state.currentTemp) {
       return (
         <div className="top-right-flex">
           <div><i title={this.state.weatherDesc} className={this.state.currentWeatherIconClass} ></i> <span>{this.state.currentTemp}</span><span className="tempScale" onClick={this.changeTempScale.bind(this)} >{this.state.tempScale}</span></div>
@@ -86,7 +106,7 @@ export default class Weather extends React.Component {
       );
     }
     return (
-      <div>Loading...</div>
+      <div></div>
     );
   }
 }

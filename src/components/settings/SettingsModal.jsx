@@ -19,6 +19,7 @@ export default class SettingsModal extends React.Component {
       balanceSettings: false,
       aboutPane: false,
       showFeatures: this.props.showFeatures,
+      options: this.props.options,
       selected: 'generalSettings',
     };
   }
@@ -62,7 +63,9 @@ export default class SettingsModal extends React.Component {
           <div className="settings-main-pane">
             {this.state.generalSettings && <GeneralSettings
               toggleFeature={this.props.toggleFeature.bind(this)}
-              showFeatures={this.state.showFeatures} />}
+              showFeatures={this.state.showFeatures}
+              options={this.state.options}
+              changeOption={this.props.changeOption.bind(this)} />}
             {this.state.toDoSettings && <ToDoSettings />}
             {this.state.backgroundSettings && <BackgroundSettings />}
             {this.state.quotesSettings && <QuotesSettings />}

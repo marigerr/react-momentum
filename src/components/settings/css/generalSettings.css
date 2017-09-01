@@ -13,4 +13,30 @@
 
 .show-option span {
   font-size: 14px;
+  cursor: pointer;
+}
+
+.units-toggle-container > :nth-child(2) {
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 3px;
+}
+
+.option-default:hover{
+  color: #19AB27;
+  opacity: 1;
+}
+
+.units-toggle-container {
+  display: flex;
+  justify-content: space-around;
+  width: 100px;
+}
+
+.option-active {
+  color: white;
+}
+
+.option-default {
+  color: lightgrey;
+  opacity: .5;
 }

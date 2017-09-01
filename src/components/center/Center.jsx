@@ -7,29 +7,23 @@ export default class Center extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      time: this.currentMinSecs(),
-      showFocus: this.props.showFocus,
+      time: this.currentMinSecs(this.props.clockFormat),
     };
   }
 
-  currentMinSecs() {
+  currentMinSecs(clockFormat) {
     const currentTime = new Date();
-    const hrs = currentTime.getHours().toString(10);
-    const displayHrs = hrs.length === 1 ? `0${hrs}` : hrs;
-    const min = currentTime.getMinutes().toString(10);
-    const displayMin = min.length === 1 ? `0${min}` : min;
-    const time = `${displayHrs}:${displayMin}`;
-    return time;
-    // console.log(currentTime);
-    // console.log(hrs);
-    // console.log(min);
-    // console.log(displayHrs);
-    // console.log(displayMin);
+    const hrs = currentTime.getHours();
+    const min = currentTime.getMinutes();
+
+    if (clockFormat === '12hour') {
+      return `${hrs % 12 || 12}:${min < 10 ? `0${min}` : min} ${hrs >= 12 ? 'pm' : 'am'}`;
+    }
+    return `${hrs < 10 ? `0${hrs}` : hrs}:${min < 10 ? `0${min}` : min}`;
   }
 
   updateTime() {
-    this.setState({ time: this.currentMinSecs() }, () => {
-    });
+    this.setState({ time: this.currentMinSecs(this.props.clockFormat) });
   }
 
   componentDidMount() {
@@ -38,18 +32,17 @@ export default class Center extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      showFocus: nextProps.showFocus,
+      time: this.currentMinSecs(nextProps.clockFormat),
     });
   }
 
   render() {
+    const timeArr = this.state.time.split(' ');
     return (
       <div id="center">
-        <div className="time">{this.state.time}</div>
-        <Greeting
-          time={this.state.time}
-        />
-        {this.state.showFocus && <FocusToDo />}
+        <div className="time">{timeArr[0]}{timeArr[1] && <span className="ampm">{timeArr[1]}</span>}</div>
+        <Greeting />
+        {this.props.showFocus && <FocusToDo />}
       </div>
     );
   }
