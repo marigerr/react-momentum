@@ -1,5 +1,4 @@
 import React from 'react';
-// import SettingsIcon from 'Settings/SettingsIcon.jsx';
 import 'Stylesheets/top-left.css';
 import 'Images/settings.svg';
 import 'Images/chrome.svg';
@@ -27,7 +26,10 @@ export default class TopLeft extends React.Component {
   googleSearch(e) {
     if (e.key === 'Enter') {
       const searchString = this.state.inputValue.split(' ').join('+');
-      chrome.tabs.update({ url: `http://www.google.com/search?q=${searchString}` });
+      window.open(`http://www.google.com/search?q=${searchString}`);
+      this.setState({
+        inputValue: '',
+      });
     }
   }
 
@@ -50,26 +52,16 @@ export default class TopLeft extends React.Component {
     return (
       <div>
         {this.state.showChromeTab &&
-        <a href="#" id="chrome-tab-link" title="Chrome Tab" onClick={openChromeTab}><img className="icon-top-left" src="./assets/images/chrome.svg" alt="Chrome Tab" /></a>
-        }
-        {this.state.showApps &&
-        <a href="#" id="chrome-apps-link" title="Apps" onClick={openChromeApps}><img className="icon-top-left" src="./assets/images/nine-squares.svg" alt="Chrome Apps" /></a>
+        <a href="https://www.google.com" target="blank" rel="noopener noreferrer" id="chrome-tab-link" title="Chrome Tab"><img className="icon-top-left" src="./assets/images/chrome.svg" alt="Chrome Tab" /></a>
         }
         {this.state.showSearch &&
         <a href="#" id="chrome-search-link" onClick={this.showSearchInput.bind(this)} title="Search"><img className="icon-top-left" src="./assets/images/search.svg" alt="Search" /></a>
         }
         {this.state.isHidden &&
-          <input type="text" id="chrome-search-input" value={this.state.inputValue} onChange={this.updateInputValue.bind(this)} autoFocus name="search" onKeyPress={this.googleSearch.bind(this)} />
+          <input type="text" id="chrome-search-input" value={this.state.inputValue} onChange={this.updateInputValue.bind(this)} autoFocus name="search" onKeyPress={this.googleSearch.bind(this)} onBlur={this.showSearchInput.bind(this)} />
         }
       </div>
     );
   }
 }
 
-function openChromeTab() {
-  chrome.tabs.update({ url: 'chrome-search://local-ntp/local-ntp.html' });
-}
-
-function openChromeApps() {
-  chrome.tabs.update({ url: 'chrome://apps/' });
-}

@@ -34,11 +34,6 @@ export default class GeneralSettings extends React.Component {
             icons={false} onChange={this.props.toggleFeature.bind(this)} />
         </label>
         <label className="show-option">
-          <span>Apps</span>
-          <Toggle id="showApps" defaultChecked={this.state.showFeatures.showApps}
-            icons={false} onChange={this.props.toggleFeature.bind(this)} />
-        </label>
-        <label className="show-option">
           <span>Search</span>
           <Toggle id="showSearch" defaultChecked={this.state.showFeatures.showSearch}
             icons={false} onChange={this.props.toggleFeature.bind(this)} />

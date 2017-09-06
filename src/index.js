@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'Src/manifest.json';
 import 'Src/index.html';
-import 'Images/sea-turtle16.png';
-import 'Images/sea-turtle128.png';
+import 'Src/favicon.ico';
 import App from 'Components/App.jsx';
+/* eslint-disable */
+import 'Src/CNAME';
+import 'Src/.surgeignore';
+/* eslint-enable */
 
 ReactDOM.render(<App />, document.getElementById('root'));

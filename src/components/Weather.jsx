@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import 'Stylesheets/weather-icons.min.css';
 import 'Stylesheets/top-right-weather.css';
 import weatherIcons from 'Json/icons.json';
 import { titleCase, getCurrentTime, localStorageKeyExists, addToLocalStorage, getFromLocalStorage } from 'Scripts/utilities';
