@@ -2,6 +2,7 @@ import React from 'react';
 import { getCurrentTime, localStorageKeyExists, addToLocalStorage, getFromLocalStorage, isNotANewDay, objIsInArray } from 'Scripts/utilities';
 import { getUnsplashPhoto } from 'Scripts/apiCalls';
 import 'Stylesheets/wallpaper.css';
+import 'Images/paul-morris-167780.jpg';
 
 export default class WallpaperInfo extends React.Component {
   constructor(props) {
@@ -48,6 +49,17 @@ export default class WallpaperInfo extends React.Component {
           addToLocalStorage('wallpaper', wallpaperData);
           addToLocalStorage('wallpaperTimestamp', getCurrentTime());
           this.props.updateWallpaperInfo(wallpaperData);
+        })
+        .catch((error) => {
+          console.log(error);
+          this.setState({
+            divStyle: {
+              backgroundImage: 'url(./assets/images/paul-morris-167780.jpg)',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no - repeat',
+              backgroundSize: 'cover',
+            },
+          });
         });
     }
   }

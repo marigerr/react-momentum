@@ -7,6 +7,17 @@
   margin-right: 5px;
 }
 
+.photographer-container a {
+  color: #E7E0E0;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.photographer-container a:hover {
+  color: white;
+}
+
+
 .wallpaper-info-container > *:first-child {
   transform: translateY(50%);
   transition: all 0.5s ease;

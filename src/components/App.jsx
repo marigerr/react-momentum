@@ -169,8 +169,10 @@ export default class App extends React.Component {
               clockFormat={this.state.options.clockFormat} />
           </div>
           <div className="row bottom-row">
-            {this.state.wallpaperData &&
+            <div className="wallpaper-info-outer-container">
+              {this.state.wallpaperData &&
               <WallpaperInfo wallpaperData={this.state.wallpaperData} /> }
+            </div>
             {this.state.showFeatures.showQuote &&
               <Quote
                 updateQuoteInfo={this.updateQuoteInfo.bind(this)}

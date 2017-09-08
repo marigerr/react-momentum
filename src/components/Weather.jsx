@@ -54,7 +54,13 @@ export default class Weather extends React.Component {
                 tempScale: this.props.tempScale,
                 // userCity: result.data.name,
               });
+            })
+            .catch((error) => {
+              console.log(error);
             });
+        })
+        .catch((error) => {
+          console.log(error);
         });
     }
   }
