@@ -61,7 +61,7 @@ export default class Weather extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const newTempScale = nextProps.tempScale;
-    if (newTempScale !== this.state.tempScale) {
+    if (newTempScale !== this.props.tempScale) {
       this.setState({
         tempScale: newTempScale,
       });
