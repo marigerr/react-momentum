@@ -40,7 +40,7 @@ main {
   align-items: center;
 }
 
-.wallpaper-info-container, .todo-list-container{
+.wallpaper-info-outer-container, .todo-list-container{
   flex-grow: 1;
   flex-basis: 25%;
 }

@@ -53,10 +53,10 @@ export default class SettingsModal extends React.Component {
           <div className="settings-side-menu">
             <ul>
               <li id="generalSettings" className={this.isActive('generalSettings')} onClick={this.changeTab.bind(this)}>General</li>
-              <li id="toDoSettings" className={this.isActive('toDoSettings')} onClick={this.changeTab.bind(this)}>ToDo</li>
+              {/* <li id="toDoSettings" className={this.isActive('toDoSettings')} onClick={this.changeTab.bind(this)}>ToDo</li> */}
               <li id="backgroundSettings" className={this.isActive('backgroundSettings')} onClick={this.changeTab.bind(this)}>Background</li>
               <li id="quotesSettings" className={this.isActive('quotesSettings')} onClick={this.changeTab.bind(this)}>Quotes</li>
-              <li id="balanceSettings" className={this.isActive('balanceSettings')} onClick={this.changeTab.bind(this)}>Balance</li>
+              {/* <li id="balanceSettings" className={this.isActive('balanceSettings')} onClick={this.changeTab.bind(this)}>Balance</li> */}
               <li id="aboutPane" className={this.isActive('aboutPane')} onClick={this.changeTab.bind(this)}>About</li>
             </ul>
           </div>
