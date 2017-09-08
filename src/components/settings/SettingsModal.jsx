@@ -68,7 +68,15 @@ export default class SettingsModal extends React.Component {
               changeOption={this.props.changeOption.bind(this)} />}
             {this.state.toDoSettings && <ToDoSettings />}
             {this.state.backgroundSettings && <BackgroundSettings />}
-            {this.state.quotesSettings && <QuotesSettings />}
+            {this.state.quotesSettings &&
+              <QuotesSettings
+                toggleLike={this.props.toggleLike.bind(this)}
+                options={this.state.options}
+                changeOption={this.props.changeOption.bind(this)}
+                displayFavQuote={this.props.displayFavQuote.bind(this)}
+                quote={this.props.quote}
+                arrLikedQuotes={this.props.arrLikedQuotes}
+              />}
             {this.state.balanceSettings && <BalanceSettings />}
             {this.state.aboutPane && <About />}
           </div>

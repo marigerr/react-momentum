@@ -19,6 +19,7 @@ function initializeLocalStorage() {
   addToLocalStorage('wallpaper', {});
   addToLocalStorage('wallpaperTimestamp', 0);
   addToLocalStorage('weatherTimestamp', 0);
+  addToLocalStorage('arrLikedQuotes', []);
   addToLocalStorage('userSettings', {
     showFeatures: {
       showChromeTab: true,
@@ -32,6 +33,8 @@ function initializeLocalStorage() {
     options: {
       tempScale: 'C',
       clockFormat: '24hour',
+      quoteFrequency: '6hour',
+      wallpaperFrequency: '6hour',
     },
   });
 }
@@ -53,6 +56,7 @@ function updateLocalStorageObjProp(localStorageKey, propertyToUpdate, newValue) 
   const objectNeedingUpdate = getFromLocalStorage(localStorageKey);
   objectNeedingUpdate[propertyToUpdate] = newValue;
   addToLocalStorage(localStorageKey, objectNeedingUpdate);
+  return getFromLocalStorage(localStorageKey);
 }
 
 // add an object to an existing local storage array or creates new one

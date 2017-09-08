@@ -10,7 +10,7 @@ import Quote from 'Components/random-quote/Quote.jsx';
 import ToDoList from 'Components/toDo/ToDoList.jsx';
 import AskInput from 'Components/askInput.jsx';
 import 'Stylesheets/index.css';
-import { initializeLocalStorage, localStorageKeyExists, addToLocalStorage, getFromLocalStorage } from 'Scripts/utilities';
+import { initializeLocalStorage, localStorageKeyExists, addToLocalStorage, getFromLocalStorage, updateLocalStorageObjProp, addToLocalStorageArray, removeFromLocalStorageArray } from 'Scripts/utilities';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -21,6 +21,8 @@ export default class App extends React.Component {
     const savedUsername = localStorageKeyExists('username');
     const username = getFromLocalStorage('username');
     const userSettings = getFromLocalStorage('userSettings');
+    const currentQuote = getFromLocalStorage('quote') || {};
+    const arrLikedQuotes = getFromLocalStorage('arrLikedQuotes') || [];
 
     this.state = {
       usernameStatus: {
@@ -32,6 +34,8 @@ export default class App extends React.Component {
         label: 'askName-label',
         input: 'askName-input',
       },
+      currentQuote,
+      arrLikedQuotes,
       showFeatures: userSettings.showFeatures,
       options: userSettings.options,
     };
@@ -84,6 +88,47 @@ export default class App extends React.Component {
     });
   }
 
+  updateQuoteInfo(currentQuote) {
+    this.setState({
+      currentQuote,
+    });
+  }
+
+  displayFavQuote(currentDisplayedQuote, selectedQuoteId) {
+    if (currentDisplayedQuote.id !== selectedQuoteId) {
+      const newDisplayQuote = this.state.arrLikedQuotes.find(quote => quote.id === selectedQuoteId);
+      const currentQuote = newDisplayQuote;
+      addToLocalStorage('quote', newDisplayQuote);
+      this.setState({
+        currentQuote,
+      });
+    }
+  }
+
+  toggleLike(likeStatus, quoteId) {
+    const currentQuote = updateLocalStorageObjProp('quote', 'liked', likeStatus);
+    if (currentQuote.id === quoteId) {
+      this.setState({ currentQuote }, () => {
+        if (likeStatus) {
+          const arrLikedQuotes = addToLocalStorageArray('arrLikedQuotes', this.state.currentQuote);
+          this.setState({
+            arrLikedQuotes,
+          });
+        } else {
+          const arrLikedQuotes = removeFromLocalStorageArray('arrLikedQuotes', 'id', quoteId);
+          this.setState({
+            arrLikedQuotes,
+          });
+        }
+      });
+    } else {
+      const arrLikedQuotes = removeFromLocalStorageArray('arrLikedQuotes', 'id', quoteId);
+      this.setState({
+        arrLikedQuotes,
+      });
+    }
+  }
+
   updateWallpaperInfo(wallpaperData) {
     this.setState({
       wallpaperData,
@@ -102,6 +147,10 @@ export default class App extends React.Component {
               showFeatures={this.state.showFeatures}
               options={this.state.options}
               changeOption={e => this.changeOption(e)}
+              toggleLike={this.toggleLike.bind(this)}
+              displayFavQuote={this.displayFavQuote.bind(this)}
+              quote={this.state.currentQuote}
+              arrLikedQuotes={this.state.arrLikedQuotes}
             />
           }
           <div className="row top-row">
@@ -120,10 +169,16 @@ export default class App extends React.Component {
               clockFormat={this.state.options.clockFormat} />
           </div>
           <div className="row bottom-row">
-
             {this.state.wallpaperData &&
               <WallpaperInfo wallpaperData={this.state.wallpaperData} /> }
-            {this.state.showFeatures.showQuote && <Quote />}
+            {this.state.showFeatures.showQuote &&
+              <Quote
+                updateQuoteInfo={this.updateQuoteInfo.bind(this)}
+                toggleLike={this.toggleLike.bind(this)}
+                quote={this.state.currentQuote}
+                quoteFrequency={this.state.options.quoteFrequency}
+              />
+            }
             <div className="todo-list-container">
               {this.state.showFeatures.showTodo && <ToDoList />}
             </div>

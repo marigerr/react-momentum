@@ -1,56 +1,81 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { addToLocalStorage, localStorageKeyExists, getFromLocalStorage, getCurrentTime } from 'Scripts/utilities';
+import { addToLocalStorage, localStorageKeyExists, getFromLocalStorage, getCurrentTime, objIsInArray } from 'Scripts/utilities';
 import 'Stylesheets/quote.css';
+import LikeheartReusable from 'Components/LikeheartReusable.jsx';
 import TwitterLink from './twitter.jsx';
-import LikeHeart from './likeheart.jsx';
 
 class Quote extends Component {
   constructor(props) {
     super(props);
-    if (localStorageKeyExists('quote')) {
-      const currentQuote = getFromLocalStorage('quote');
-      this.state = {
-        quote: currentQuote.quote,
-        author: currentQuote.author,
-      };
-    } else {
-      this.state = {
-        quote: 'Dream big dreams. Small dreams have no magic.',
-        author: 'Dottie Boreyko',
-      };
+    this.state = {
+      currentQuote: {
+        quote: '',
+        author: '',
+        id: '',
+        liked: '',
+      },
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.state !== nextProps.quote) {
+      const currentQuote = nextProps.quote;
+      this.setState({
+        currentQuote,
+      });
     }
   }
 
-  check60Min() {
+  checkFrequency() {
     const currentTime = getCurrentTime();
     const quoteTimeStamp = getFromLocalStorage('quoteTimeStamp');
     const timeInterval = currentTime - quoteTimeStamp;
-    return timeInterval >= 3600000;
+    const { quoteFrequency } = this.props;
+    let quoteFrequencyMili;
+    switch (true) {
+      case quoteFrequency === '2hour':
+        quoteFrequencyMili = 7200000;
+        break;
+      case quoteFrequency === '6hour':
+        quoteFrequencyMili = 21600000;
+        break;
+      case quoteFrequency === '12hour':
+        quoteFrequencyMili = 43200000;
+        break;
+      default:
+        quoteFrequencyMili = 21600000;
+        break;
+    }
+    return timeInterval >= quoteFrequencyMili;
   }
 
   componentDidMount() {
     const URL = 'https://random-quote-generator.herokuapp.com/api/quotes/random';
-    const over60Min = this.check60Min();
-    if (localStorageKeyExists('quote') && !over60Min) {
+    const overTime = this.checkFrequency();
+    if (localStorageKeyExists('quote') && !overTime) {
       const currentQuote = getFromLocalStorage('quote');
       this.setState({
-        quote: currentQuote.quote,
-        author: currentQuote.author,
+        currentQuote,
       });
+      this.props.updateQuoteInfo(currentQuote);
     } else {
       axios.get(URL)
         .then((response) => {
-          this.setState({
+          const quoteId = getCurrentTime();
+          const currentQuote = {
             quote: response.data.quote,
             author: response.data.author,
-          });
-          const fetchQuote = {
-            quote: this.state.quote,
-            author: this.state.author,
+            id: quoteId,
+            liked: localStorageKeyExists('quote') &&
+                objIsInArray(getFromLocalStorage('arrLikedQuotes'), 'id', quoteId),
           };
-          addToLocalStorage('quote', fetchQuote);
+          this.setState({
+            currentQuote,
+          });
+          addToLocalStorage('quote', currentQuote);
           addToLocalStorage('quoteTimeStamp', getCurrentTime());
+          this.props.updateQuoteInfo(currentQuote);
         });
     }
   }
@@ -58,16 +83,16 @@ class Quote extends Component {
   render() {
     return (
       <div className='quote-container'>
-        <div>{this.state.quote}</div>
+        <div>{this.state.currentQuote.quote}</div>
         <div className='author-container'>
-          <div>{this.state.author}</div>
-          <LikeHeart
-            quote={this.state.quote}
-            author={this.state.author}
-          />
+          <div>{this.state.currentQuote.author}</div>
+          <LikeheartReusable
+            toggleLike={this.props.toggleLike.bind(this)}
+            liked={this.props.quote.liked}
+            id={this.props.quote.id} />
           <TwitterLink
-            quote={this.state.quote}
-            author={this.state.author}
+            quote={this.props.quote.quote}
+            author={this.props.quote.author}
           />
         </div>
       </div>
