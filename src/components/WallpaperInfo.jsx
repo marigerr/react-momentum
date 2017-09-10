@@ -1,6 +1,6 @@
 import React from 'react';
-import { updateLocalStorageObjProp, addToLocalStorageArray, removeFromLocalStorageArray, titleCase } from 'Scripts/utilities';
-import LikeheartReusable from 'Components/LikeheartReusable.jsx';
+import { titleCase } from 'Scripts/utilities';
+import Likeheart from 'Components/Likeheart.jsx';
 import 'Stylesheets/wallpaper-info.css';
 
 export default class WallpaperInfo extends React.Component {
@@ -9,15 +9,14 @@ export default class WallpaperInfo extends React.Component {
     this.state = this.props.wallpaperData;
   }
 
-  toggleLike(likeStatus) {
-    updateLocalStorageObjProp('wallpaper', 'wallpaperLiked', likeStatus);
-    this.setState({ wallpaperLiked: likeStatus }, () => {
-      if (likeStatus) {
-        addToLocalStorageArray('arrLikedWallpapers', this.state);
-      } else {
-        removeFromLocalStorageArray('arrLikedWallpapers', 'id', this.state.id);
-      }
-    });
+  componentWillReceiveProps(nextProps) {
+    if (this.state !== nextProps.wallpaperData) {
+      this.setState({
+        wallpaperLiked: nextProps.wallpaperData.wallpaperLiked,
+        user: nextProps.wallpaperData.user,
+        location: nextProps.wallpaperData.location,
+      });
+    }
   }
 
   render() {
@@ -32,9 +31,11 @@ export default class WallpaperInfo extends React.Component {
           <div>
             <a target='_blank' rel="noopener noreferrer" href={`${this.state.user.links.html}${unsplashUTM}`}>{photographer} / </a><a target='_blank' rel="noopener noreferrer" href={`https://unsplash.com${unsplashUTM}`}>Unsplash</a>
           </div>
-          <LikeheartReusable
-            toggleLike={this.toggleLike.bind(this)}
-            liked={this.state.wallpaperLiked} />
+          <Likeheart
+            toggleLike={this.props.toggleLike.bind(this)}
+            liked={this.state.wallpaperLiked}
+            id= {this.props.wallpaperData.id}
+            type='wallpaper' />
         </div>
       </div>
     );

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { addToLocalStorage, localStorageKeyExists, getFromLocalStorage, getCurrentTime, objIsInArray } from 'Scripts/utilities';
 import 'Stylesheets/quote.css';
-import LikeheartReusable from 'Components/LikeheartReusable.jsx';
+import Likeheart from 'Components/Likeheart.jsx';
 import TwitterLink from './twitter.jsx';
 
 class Quote extends Component {
@@ -86,10 +86,11 @@ class Quote extends Component {
         <div>{this.state.currentQuote.quote}</div>
         <div className='author-container'>
           <div>{this.state.currentQuote.author}</div>
-          <LikeheartReusable
+          <Likeheart
             toggleLike={this.props.toggleLike.bind(this)}
-            liked={this.props.quote.liked}
-            id={this.props.quote.id} />
+            liked={this.state.currentQuote.liked}
+            type='quote'
+            id={this.state.currentQuote.id} />
           <TwitterLink
             quote={this.props.quote.quote}
             author={this.props.quote.author}

@@ -23,6 +23,7 @@ export default class App extends React.Component {
     const userSettings = getFromLocalStorage('userSettings');
     const currentQuote = getFromLocalStorage('quote') || {};
     const arrLikedQuotes = getFromLocalStorage('arrLikedQuotes') || [];
+    const arrLikedWallpapers = getFromLocalStorage('arrLikedWallpapers') || [];
 
     this.state = {
       usernameStatus: {
@@ -36,6 +37,7 @@ export default class App extends React.Component {
       },
       currentQuote,
       arrLikedQuotes,
+      arrLikedWallpapers,
       showFeatures: userSettings.showFeatures,
       options: userSettings.options,
     };
@@ -105,27 +107,61 @@ export default class App extends React.Component {
     }
   }
 
-  toggleLike(likeStatus, quoteId) {
-    const currentQuote = updateLocalStorageObjProp('quote', 'liked', likeStatus);
-    if (currentQuote.id === quoteId) {
-      this.setState({ currentQuote }, () => {
-        if (likeStatus) {
-          const arrLikedQuotes = addToLocalStorageArray('arrLikedQuotes', this.state.currentQuote);
-          this.setState({
-            arrLikedQuotes,
-          });
-        } else {
-          const arrLikedQuotes = removeFromLocalStorageArray('arrLikedQuotes', 'id', quoteId);
-          this.setState({
-            arrLikedQuotes,
-          });
-        }
-      });
-    } else {
-      const arrLikedQuotes = removeFromLocalStorageArray('arrLikedQuotes', 'id', quoteId);
+  displayFavWallpaper(currentDisplayedWallpaper, selectedWallpaperId) {
+    if (currentDisplayedWallpaper.id !== selectedWallpaperId) {
+      const wallpaperData = this.state.arrLikedWallpapers.find(wallpaper => wallpaper.id === selectedWallpaperId);
+      addToLocalStorage('wallpaper', wallpaperData);
       this.setState({
-        arrLikedQuotes,
+        wallpaperData,
       });
+    }
+  }
+
+  toggleLike(likeStatus, objId, type) {
+    if (type === 'quote') {
+      const currentQuote = updateLocalStorageObjProp('quote', 'liked', likeStatus);
+      if (currentQuote.id === objId) {
+        this.setState({ currentQuote }, () => {
+          if (likeStatus) {
+            const arrLikedQuotes = addToLocalStorageArray('arrLikedQuotes', this.state.currentQuote);
+            this.setState({
+              arrLikedQuotes,
+            });
+          } else {
+            const arrLikedQuotes = removeFromLocalStorageArray('arrLikedQuotes', 'id', objId);
+            this.setState({
+              arrLikedQuotes,
+            });
+          }
+        });
+      } else {
+        const arrLikedQuotes = removeFromLocalStorageArray('arrLikedQuotes', 'id', objId);
+        this.setState({
+          arrLikedQuotes,
+        });
+      }
+    } else if (type === 'wallpaper') {
+      const wallpaperData = updateLocalStorageObjProp('wallpaper', 'wallpaperLiked', likeStatus);
+      if (wallpaperData.id === objId) {
+        this.setState({ wallpaperData }, () => {
+          if (likeStatus) {
+            const arrLikedWallpapers = addToLocalStorageArray('arrLikedWallpapers', this.state.wallpaperData);
+            this.setState({
+              arrLikedWallpapers,
+            });
+          } else {
+            const arrLikedWallpapers = removeFromLocalStorageArray('arrLikedWallpapers', 'id', objId);
+            this.setState({
+              arrLikedWallpapers,
+            });
+          }
+        });
+      } else {
+        const arrLikedWallpapers = removeFromLocalStorageArray('arrLikedWallpapers', 'id', objId);
+        this.setState({
+          arrLikedWallpapers,
+        });
+      }
     }
   }
 
@@ -139,7 +175,10 @@ export default class App extends React.Component {
     if (this.state.usernameStatus.existName) {
       return (
         <main id="main">
-          <Wallpaper updateWallpaperInfo={this.updateWallpaperInfo.bind(this)} />
+          <Wallpaper
+            updateWallpaperInfo={this.updateWallpaperInfo.bind(this)}
+            wallpaperData={this.state.wallpaperData}
+          />
           {this.state.showSettingsModal &&
             <SettingsModal
               closeModal={this.toggleSettingsModal.bind(this)}
@@ -149,8 +188,11 @@ export default class App extends React.Component {
               changeOption={e => this.changeOption(e)}
               toggleLike={this.toggleLike.bind(this)}
               displayFavQuote={this.displayFavQuote.bind(this)}
+              displayFavWallpaper={this.displayFavWallpaper.bind(this)}
               quote={this.state.currentQuote}
               arrLikedQuotes={this.state.arrLikedQuotes}
+              wallpaperData={this.state.wallpaperData}
+              arrLikedWallpapers={this.state.arrLikedWallpapers}
             />
           }
           <div className="row top-row">
@@ -171,7 +213,11 @@ export default class App extends React.Component {
           <div className="row bottom-row">
             <div className="wallpaper-info-outer-container">
               {this.state.wallpaperData &&
-              <WallpaperInfo wallpaperData={this.state.wallpaperData} /> }
+                <WallpaperInfo
+                  wallpaperData={this.state.wallpaperData}
+                  toggleLike={this.toggleLike.bind(this)}
+                />
+              }
             </div>
             {this.state.showFeatures.showQuote &&
               <Quote
@@ -190,7 +236,10 @@ export default class App extends React.Component {
     }
     return (
       <main id="main">
-        <Wallpaper updateWallpaperInfo={this.updateWallpaperInfo.bind(this)} />
+        <Wallpaper
+          updateWallpaperInfo={this.updateWallpaperInfo.bind(this)}
+          wallpaperData={this.state.wallpaperData}
+        />
         <div className="row top-row">
         </div>
         <div className="row middle-row">
@@ -205,7 +254,11 @@ export default class App extends React.Component {
         </div>
         <div className="row bottom-row">
           {this.state.wallpaperData &&
-            <WallpaperInfo wallpaperData={this.state.wallpaperData} /> }
+            <WallpaperInfo
+              wallpaperData={this.state.wallpaperData}
+              toggleLike={this.toggleLike.bind(this)}
+            />
+          }
         </div>
       </main>
     );

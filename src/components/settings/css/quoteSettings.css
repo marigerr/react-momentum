@@ -8,6 +8,10 @@
   margin-right: 5px;
 }
 
+.quoteListItem-container {
+  width: 310px;
+}
+
 .show-option2 > * {
   margin: 5px 4px;
 }
@@ -68,7 +72,7 @@
   opacity: .5;
 }
 
-.quote-catchphrase {
+.catchphrase {
   font-size: 15px;
   color: lightgrey;
   opacity: .7;
