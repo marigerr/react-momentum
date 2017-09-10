@@ -67,16 +67,20 @@ export default class SettingsModal extends React.Component {
               options={this.state.options}
               changeOption={this.props.changeOption.bind(this)} />}
             {this.state.toDoSettings && <ToDoSettings />}
-            {this.state.backgroundSettings && <BackgroundSettings />}
-            {this.state.quotesSettings &&
-              <QuotesSettings
-                toggleLike={this.props.toggleLike.bind(this)}
-                options={this.state.options}
-                changeOption={this.props.changeOption.bind(this)}
-                displayFavQuote={this.props.displayFavQuote.bind(this)}
-                quote={this.props.quote}
-                arrLikedQuotes={this.props.arrLikedQuotes}
-              />}
+            {this.state.backgroundSettings && <BackgroundSettings
+              toggleLike={this.props.toggleLike.bind(this)}
+              options={this.state.options}
+              changeOption={this.props.changeOption.bind(this)}
+              displayFavWallpaper={this.props.displayFavWallpaper.bind(this)}
+              wallpaperData={this.props.wallpaperData}
+              arrLikedWallpapers={this.props.arrLikedWallpapers} />}
+            {this.state.quotesSettings && <QuotesSettings
+              toggleLike={this.props.toggleLike.bind(this)}
+              options={this.state.options}
+              changeOption={this.props.changeOption.bind(this)}
+              displayFavQuote={this.props.displayFavQuote.bind(this)}
+              quote={this.props.quote}
+              arrLikedQuotes={this.props.arrLikedQuotes} />}
             {this.state.balanceSettings && <BalanceSettings />}
             {this.state.aboutPane && <About />}
           </div>

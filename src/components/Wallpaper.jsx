@@ -28,6 +28,19 @@ export default class WallpaperInfo extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.wallpaperData && this.state !== nextProps.wallpaperData) {
+      this.setState({
+        divStyle: {
+          backgroundImage: `url(${nextProps.wallpaperData.urls.full})`,
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no - repeat',
+          backgroundSize: 'cover',
+        },
+      });
+    }
+  }
+
   componentDidMount() {
     this.props.updateWallpaperInfo(this.state.wallpaperData);
     if (!this.state.haveTodaysPhoto) {

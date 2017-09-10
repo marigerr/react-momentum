@@ -3,7 +3,20 @@ import 'Stylesheets/likeheartReusable.css';
 import 'Images/001-heart-shape-silhouette.svg';
 import 'Images/002-heart.svg';
 
-class LikeheartReusable extends Component {
+class Likeheart extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { liked: this.props.liked };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.state !== nextProps.liked) {
+      this.setState({
+        liked: nextProps.liked,
+      });
+    }
+  }
+
   showIcon() {
     if (this.props.liked) {
       return <img className="icon-heart expand" src='../assets/images/001-heart-shape-silhouette.svg' />;
@@ -13,9 +26,11 @@ class LikeheartReusable extends Component {
 
   changeLike() {
     if (this.props.liked === true) {
-      this.props.toggleLike(false, this.props.id);
+      this.props.toggleLike(false, this.props.id, this.props.type);
+      this.setState({ liked: false });
     } else {
-      this.props.toggleLike(true, this.props.id);
+      this.props.toggleLike(true, this.props.id, this.props.type);
+      this.setState({ liked: true });
     }
   }
 
@@ -28,4 +43,4 @@ class LikeheartReusable extends Component {
   }
 }
 
-export default LikeheartReusable;
+export default Likeheart;

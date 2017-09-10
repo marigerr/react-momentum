@@ -1,5 +1,5 @@
 import React from 'react';
-import LikeheartReusable from 'Components/LikeheartReusable.jsx';
+import Likeheart from 'Components/Likeheart.jsx';
 import 'Images/technology.svg';
 import '../css/quoteSettings.css';
 
@@ -12,11 +12,12 @@ export default class QuotesSettings extends React.Component {
   quotesList(arrLikedQuotes) {
     const quotesList = arrLikedQuotes.map(quote => (
       <div key={quote.id} className="show-option2">
-        <div>{`"${quote.quote}" `}<span className="author-style"> — {quote.author}</span></div>
+        <div className="quoteListItem-container">{`"${quote.quote}" `}<span className="author-style"> — {quote.author}</span></div>
         <div className="transparency" title="Remove">
-          <LikeheartReusable
+          <Likeheart
             toggleLike={this.props.toggleLike.bind(this)}
             liked={quote.liked}
+            type='quote'
             id={quote.id} />
         </div>
         <div className="transparency" title="Display">
@@ -48,8 +49,8 @@ export default class QuotesSettings extends React.Component {
   render() {
     return (
       <div>
-        <h1 className="quote-title">Quotes</h1>
-        <p className="quote-catchphrase">Your favorite inspirational and motivational gems</p>
+        <h1>Quotes</h1>
+        <p className="catchphrase">Your favorite inspirational and motivational gems</p>
         <div className="quote-list-container2">
           {this.quotesList(this.props.arrLikedQuotes)}
         </div>
