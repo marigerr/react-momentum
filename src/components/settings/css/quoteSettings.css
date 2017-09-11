@@ -9,7 +9,7 @@
 }
 
 .quoteListItem-container {
-  width: 310px;
+  /* width: 310px; */
 }
 
 .show-option2 > * {
@@ -55,7 +55,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start; 
-  width: 400px;
+  /* width: 400px; */
   height: 300px; 
   max-height: 400px;
   overflow-y: auto;

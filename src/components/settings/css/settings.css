@@ -39,7 +39,7 @@
 }
 
 .settings-side-menu {
-  flex-basis: 20%;
+  flex-basis: 12%;
   padding-top: 20px;
   padding-left: 20px;
   padding-right: 40px;
@@ -70,7 +70,7 @@
 
 .settings-main-pane {
   padding: 10px;
-  flex-basis: 65%
+  flex-basis: 88%
 }
 
 .settings-main-pane h1 {

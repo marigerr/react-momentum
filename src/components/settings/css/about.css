@@ -1,0 +1,10 @@
+.about-settings-tab a {
+  text-decoration: none;
+  color: rgb(211, 211, 211);
+  font-size:15px
+}
+
+.about-settings-tab p {
+  color: #979F97;
+  font-size:15px
+}
