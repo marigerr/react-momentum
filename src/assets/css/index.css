@@ -49,3 +49,13 @@ main {
   flex-grow: 2;
   flex-basis: 50%
 }
+
+@media only screen and (max-width: 700px) {
+  main {
+    color: transparent !important;
+  }
+  .askToDo-input {
+    border: none;
+    cursor: none;
+  }  
+}
