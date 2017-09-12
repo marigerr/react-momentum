@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { addToLocalStorage, localStorageKeyExists, getFromLocalStorage, getCurrentTime, objIsInArray } from 'Scripts/utilities';
+import { addToLocalStorage, localStorageKeyExists, getFromLocalStorage, getCurrentTime } from 'Scripts/utilities';
 import 'Stylesheets/quote.css';
 import Likeheart from 'Components/Likeheart.jsx';
 import TwitterLink from './twitter.jsx';
@@ -62,20 +62,31 @@ class Quote extends Component {
     } else {
       axios.get(URL)
         .then((response) => {
-          const quoteId = getCurrentTime();
-          const currentQuote = {
-            quote: response.data.quote,
-            author: response.data.author,
-            id: quoteId,
-            liked: localStorageKeyExists('quote') &&
-                objIsInArray(getFromLocalStorage('arrLikedQuotes'), 'id', quoteId),
-          };
-          this.setState({
-            currentQuote,
-          });
-          addToLocalStorage('quote', currentQuote);
-          addToLocalStorage('quoteTimeStamp', getCurrentTime());
-          this.props.updateQuoteInfo(currentQuote);
+          const arrLikedQuotes = getFromLocalStorage('arrLikedQuotes');
+          const alreadyFavQuote = arrLikedQuotes.find(quote => response.data.quote === quote.quote);
+          if (!alreadyFavQuote) {
+            const quoteId = getCurrentTime();
+            const currentQuote = {
+              quote: response.data.quote,
+              author: response.data.author,
+              id: quoteId,
+              liked: false,
+            };
+            this.setState({
+              currentQuote,
+            });
+            addToLocalStorage('quote', currentQuote);
+            addToLocalStorage('quoteTimeStamp', getCurrentTime());
+            this.props.updateQuoteInfo(currentQuote);
+          } else {
+            const currentQuote = alreadyFavQuote;
+            this.setState({
+              currentQuote,
+            });
+            addToLocalStorage('quote', currentQuote);
+            addToLocalStorage('quoteTimeStamp', getCurrentTime());
+            this.props.updateQuoteInfo(currentQuote);
+          }
         });
     }
   }
