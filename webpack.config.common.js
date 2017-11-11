@@ -53,18 +53,18 @@ module.exports = {
           },
         }],
       },
-      {
-        test: [
-          path.join(__dirname, 'src/CNAME'),
-          path.join(__dirname, 'src/.surgeignore'),
-        ],
-        use: [{
-          loader: 'file-loader',
-          options: {
-            name: '[path][name]',
-          },
-        }],
-      },
+      // {
+      //   test: [
+      //     path.join(__dirname, 'src/CNAME'),
+      //     path.join(__dirname, 'src/.surgeignore'),
+      //   ],
+      //   use: [{
+      //     loader: 'file-loader',
+      //     options: {
+      //       name: '[path][name]',
+      //     },
+      //   }],
+      // },
     ],
   },
   resolve: {

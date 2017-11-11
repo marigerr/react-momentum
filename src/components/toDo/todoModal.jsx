@@ -43,7 +43,7 @@ class ToDoModal extends Component {
         }
         {this.props.toDosArr.length === 0 &&
           <div className="no-todo-container">
-            <div><img className="smile" src='../assets/images/smile.svg'/></div>
+            <div><img className="smile" src='./assets/images/smile.svg'/></div>
             <div>Nothing to do</div>
             <div>One step at a time...</div>
           </div>
