@@ -60,17 +60,17 @@ class FocusToDo extends Component {
   // Decide which checkbox to show according to todo completion
   showCheckbox() {
     if (this.state.focusToDo.toDoDone) {
-      return <img className="focusToDo-checkbox" src='../assets/images/002-check.svg'/>;
+      return <img className="focusToDo-checkbox" src='./assets/images/002-check.svg'/>;
     }
-    return <img className="focusToDo-checkbox" src='../assets/images/001-check-box-empty.svg'/>;
+    return <img className="focusToDo-checkbox" src='./assets/images/001-check-box-empty.svg'/>;
   }
 
   // Decide which delete button type according to todo completion
   showDeleteButton() {
     if (this.state.focusToDo.toDoDone) {
-      return <div className="deleteButton"><img className="plus-sign" src='../assets/images/001-plus-black-symbol.svg'/></div>;
+      return <div className="deleteButton"><img className="plus-sign" src='./assets/images/001-plus-black-symbol.svg'/></div>;
     }
-    return <div className="deleteButton"><img className="letterX" src='../assets/images/002-remove-symbol.svg'/></div>;
+    return <div className="deleteButton"><img className="letterX" src='./assets/images/002-remove-symbol.svg'/></div>;
   }
 
   // update state when checking or unchecking the checkbox for todo completion

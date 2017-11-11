@@ -22,7 +22,7 @@ export default class BackgroundSettings extends React.Component {
               id={wallpaper.id} />
           </div>
           <div className="transparency2" title="Display" onClick={() => this.props.displayFavWallpaper(this.props.wallpaperData, wallpaper.id)}>
-            <img className="display-img" src='../assets/images/technology.svg' />
+            <img className="display-img" src='./assets/images/technology.svg' />
           </div>
         </div>
       </div>

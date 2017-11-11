@@ -65,13 +65,13 @@ export default class ToDoList extends React.Component {
   // Decide which checkbox to show according to todo completion
   showCheckbox(toDoDone) {
     if (toDoDone) {
-      return <img className="toDo-checkbox" src='../assets/images/002-check.svg'/>;
+      return <img className="toDo-checkbox" src='./assets/images/002-check.svg'/>;
     }
-    return <img className="toDo-checkbox" src='../assets/images/001-check-box-empty.svg'/>;
+    return <img className="toDo-checkbox" src='./assets/images/001-check-box-empty.svg'/>;
   }
 
   showDeleteButton() {
-    return <div className="deleteButton-todoList"><img className="letterX-todoList" src='../assets/images/002-remove-symbol.svg'/></div>;
+    return <div className="deleteButton-todoList"><img className="letterX-todoList" src='./assets/images/002-remove-symbol.svg'/></div>;
   }
 
   // update the array containing the todos list by deleting the selected todo

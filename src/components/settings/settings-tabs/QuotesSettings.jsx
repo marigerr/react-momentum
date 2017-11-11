@@ -22,7 +22,7 @@ export default class QuotesSettings extends React.Component {
         </div>
         <div className="transparency" title="Display">
           <div onClick={() => this.props.displayFavQuote(this.props.quote, quote.id)}>
-            <img className="display-img" src='../assets/images/technology.svg' />
+            <img className="display-img" src='./assets/images/technology.svg' />
           </div>
         </div>
       </div>

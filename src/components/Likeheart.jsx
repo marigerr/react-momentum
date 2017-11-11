@@ -19,9 +19,9 @@ class Likeheart extends Component {
 
   showIcon() {
     if (this.props.liked) {
-      return <img className="icon-heart expand" src='../assets/images/001-heart-shape-silhouette.svg' />;
+      return <img className="icon-heart expand" src='./assets/images/001-heart-shape-silhouette.svg' />;
     }
-    return <img className="icon-heart" src='../assets/images/002-heart.svg' />;
+    return <img className="icon-heart" src='./assets/images/002-heart.svg' />;
   }
 
   changeLike() {
