@@ -14,7 +14,7 @@ export default class WallpaperInfo extends React.Component {
       this.state = {
         wallpaperData,
         divStyle: {
-          backgroundImage: `url(${wallpaperData.urls.full})`,
+          backgroundImage: `url(${wallpaperData.urls.regular})`,
           backgroundPosition: 'center',
           backgroundRepeat: 'no - repeat',
           backgroundSize: 'cover',
@@ -33,7 +33,7 @@ export default class WallpaperInfo extends React.Component {
     if (nextProps.wallpaperData && this.state !== nextProps.wallpaperData) {
       this.setState({
         divStyle: {
-          backgroundImage: `url(${nextProps.wallpaperData.urls.full})`,
+          backgroundImage: `url(${nextProps.wallpaperData.urls.regular})`,
           backgroundPosition: 'center',
           backgroundRepeat: 'no - repeat',
           backgroundSize: 'cover',
@@ -53,7 +53,7 @@ export default class WallpaperInfo extends React.Component {
           this.setState({
             wallpaperData,
             divStyle: {
-              backgroundImage: `url(${wallpaperData.urls.full})`,
+              backgroundImage: `url(${wallpaperData.urls.regular})`,
               backgroundPosition: 'center',
               backgroundRepeat: 'no - repeat',
               backgroundSize: 'cover',

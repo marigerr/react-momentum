@@ -1,5 +1,4 @@
-[Waffle Board](https://waffle.io/chingu-voyage-turtles-team-5/momentum-clone)   
-[![Stories in Progress](https://badge.waffle.io/chingu-voyage-turtles-team-5/momentum-clone.png?label=In%20Progress&title=In%20Progress)](https://waffle.io/chingu-voyage-turtles-team-5/momentum-clone?utm_source=badge)
+
 
 ## Clone of Momentum Chrome Extension 
 
@@ -7,11 +6,11 @@ Clone of [Momentum Dash](https://chrome.google.com/webstore/detail/momentum/laoo
 
 Developed as [Chingu Cohort](https://chingu-cohorts.github.io/chingu-directory/) "Build to Learn" project 
 
-Web demo of extension is available at https://t5-momentum.surge.sh
+Web demo of extension is available at https://marigerr.github.io/react-momentum-clone/
 
 **Note: The web demo of extension is viewable only for desktops as project was built as a chrome extension which are desktop only**
 
-## Install Extension
+## Install Extension for development
 
 1. After cloning repo locally, run `npm install` and then `npm run build`
 1. Open Chrome and navigate to `chrome://extensions`  
