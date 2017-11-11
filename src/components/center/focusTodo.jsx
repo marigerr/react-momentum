@@ -11,7 +11,7 @@ import 'Images/002-remove-symbol.svg';
 class FocusToDo extends Component {
   constructor(props) {
     super(props);
-    // keep track of saved focus todo and if it was already done or not. 
+    // keep track of saved focus todo and if it was already done or not.
     // Initialize state accordingly
     const savedToDo = localStorageKeyExists('toDo');
     const toDo = getFromLocalStorage('toDo');

@@ -51,7 +51,7 @@ function localStorageKeyExists(key) {
   return localStorage.getItem(key) !== null;
 }
 
-// updates 1 property of an object stored in local storage 
+// updates 1 property of an object stored in local storage
 function updateLocalStorageObjProp(localStorageKey, propertyToUpdate, newValue) {
   const objectNeedingUpdate = getFromLocalStorage(localStorageKey);
   objectNeedingUpdate[propertyToUpdate] = newValue;
@@ -71,8 +71,8 @@ function addToLocalStorageArray(localStorageKey, objectToAdd) {
   return storageArray || [objectToAdd];
 }
 
-/* 
-  removeFromLocalStorageArray() - removes an object from a local storage object array. 
+/*
+  removeFromLocalStorageArray() - removes an object from a local storage object array.
   Parameters :
     - localStorageKey = name of local storage array
     - idProp = name of object property that is used to identify the object to remove
@@ -87,10 +87,10 @@ function removeFromLocalStorageArray(localStorageKey, idProp, idToRemove) {
   return updatedArray;
 }
 
-/* 
-  objIsInArray() - checks if object is in array. 
-  Parameters: 
-  - array 
+/*
+  objIsInArray() - checks if object is in array.
+  Parameters:
+  - array
   - idProp = name of property that is used to identify the object to find
   - id = value of id for objec to find
 */
