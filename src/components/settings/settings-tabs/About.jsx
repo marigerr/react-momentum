@@ -17,7 +17,7 @@ export default class About extends React.Component {
         Developed for <a target='_blank' rel="noopener noreferrer" href="https://chingu-cohorts.github.io/chingu-directory/">Chingu Cohort</a> &#34;Build to Learn&#34; project
         </p>
         <p>Team Members:</p>
-        <p><a target='_blank' rel="noopener noreferrer" href="https://github.com/jrpcoder">@jrpcoder </a>(José Pereira)</p>
+        <p><a target='_blank' rel="noopener noreferrer" href="https://github.com/jrpcoder">@jrpcoder </a></p>
         <p><a target='_blank' rel="noopener noreferrer" href="https://github.com/marigerr">@marigerr</a></p>
       </div>
     );
