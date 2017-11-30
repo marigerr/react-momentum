@@ -51,7 +51,7 @@ class Quote extends Component {
   }
 
   componentDidMount() {
-    const URL = 'https://random-quote-generator.herokuapp.com/api/quotes/random';
+    const URL = 'https://long-bongo.glitch.me/api.quotes/random';
     const overTime = this.checkFrequency();
     if (localStorageKeyExists('quote') && !overTime) {
       const currentQuote = getFromLocalStorage('quote');
