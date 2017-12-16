@@ -2,7 +2,7 @@ import React from 'react';
 import { getCurrentTime, localStorageKeyExists, addToLocalStorage, getFromLocalStorage, isNotANewDay, objIsInArray } from 'Scripts/utilities';
 import { getUnsplashPhoto } from 'Scripts/apiCalls';
 import 'Stylesheets/wallpaper.css';
-import 'Images/photo-1483412919093-03a22057d0d7.jpg';
+import 'Images/photo-1476616853026-24c1f0309646.jpg';
 
 export default class WallpaperInfo extends React.Component {
   constructor(props) {
@@ -11,7 +11,7 @@ export default class WallpaperInfo extends React.Component {
     if (localStorage.wallpaperTimestamp === '0') {
       this.state = {
         divStyle: {
-          backgroundImage: 'url(./assets/images/photo-1483412919093-03a22057d0d7.jpg)',
+          backgroundImage: 'url(./assets/images/photo-1476616853026-24c1f0309646.jpg)',
           backgroundPosition: 'center',
           backgroundRepeat: 'no - repeat',
           backgroundSize: 'cover',
@@ -78,7 +78,7 @@ export default class WallpaperInfo extends React.Component {
           console.log(error);
           this.setState({
             divStyle: {
-              backgroundImage: 'url(./assets/images/photo-1483412919093-03a22057d0d7.jpg)',
+              backgroundImage: 'url(./assets/images/photo-1476616853026-24c1f0309646.jpg)',
               backgroundPosition: 'center',
               backgroundRepeat: 'no - repeat',
               backgroundSize: 'cover',
