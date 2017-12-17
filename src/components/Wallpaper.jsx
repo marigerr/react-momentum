@@ -92,7 +92,7 @@ export default class WallpaperInfo extends React.Component {
   render() {
     return (
       <div className="wallpaper-container" style={this.state.divStyle}>
-        Demo for Desktop Only
+        {/* Demo for Desktop Only */}
       </div>
     );
   }

@@ -4,6 +4,7 @@ html, body, #root {
   height: 100%;
   margin: 0;
   font-size: 15px;
+  text-shadow: 1px 1px 7px black;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 

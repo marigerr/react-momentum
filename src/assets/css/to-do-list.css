@@ -16,6 +16,7 @@
   margin-bottom: 75px;
   margin-right: 20px;
   border: 1px solid #888;
+  text-shadow: none;
 }
 
 .todoList-status {

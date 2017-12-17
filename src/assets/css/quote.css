@@ -28,6 +28,7 @@
   width: 15px;
   height: 15px;
   cursor: pointer;
+  filter: drop-shadow( 1px 1px 1px grey ); 
 }
 
 @keyframes heart-beat {
