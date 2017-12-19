@@ -1,5 +1,8 @@
 #center {
   height: 455px;
+  align-items: center;
+  justify-content: center;
+  width: 90%;  
 }
 
 #center > div {
@@ -26,7 +29,7 @@
 .container-center-todo {
   margin-top: 30px;
   font-size: 25px;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .congrats-container {
@@ -41,13 +44,13 @@
 
 @keyframes exit-congrat {
   0% {
-  	opacity: 1;
+    opacity: 1;
   }
   77% {
-  	opacity: 1;
+    opacity: 1;
   }
   100% {
-  	opacity: 0;
+    opacity: 0;
   }
 }
 
@@ -58,35 +61,35 @@
 }
 
 @keyframes ping-effect {
-  0% { 
+  0% {
     transform: scale(1);
   }
   15% {
-  	opacity: 1;
+    opacity: 1;
   }
   30% {
-	transform: scale(4);
-	opacity: 0;
+    transform: scale(4);
+    opacity: 0;
   }
-  31% { 
+  31% {
     transform: scale(1);
   }
   46% {
-  	opacity: 1;
+    opacity: 1;
   }
   61% {
-	transform: scale(4);
-	opacity: 0;
+    transform: scale(4);
+    opacity: 0;
   }
-  62% { 
+  62% {
     transform: scale(1);
   }
   77% {
-  	opacity: 1;
+    opacity: 1;
   }
   100% {
-	transform: scale(4);
-	opacity: 0;
+    transform: scale(4);
+    opacity: 0;
   }
 }
 
@@ -99,4 +102,13 @@
   opacity: 0;
   border: 0.1px solid #FFF;
   animation: ping-effect 4s ease;
+}
+
+@media only screen and (max-width: 700px) {
+  .time {
+    font-size: 60px;
+  }
+  .greeting {
+    font-size: 40px;
+  }  
 }

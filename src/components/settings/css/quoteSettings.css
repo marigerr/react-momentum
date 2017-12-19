@@ -93,3 +93,12 @@
   height: 15px;
   margin-top: 1px;
 }
+
+@media only screen and (max-width: 700px) {
+  .quoteListItem-container {
+    width: 80%;
+  }
+  .transparency {
+    opacity: 1;
+  }  
+}

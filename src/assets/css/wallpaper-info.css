@@ -39,3 +39,15 @@
   opacity: 1;
   transition: all 0.5s ease;
 }
+
+@media only screen and (max-width: 700px) {
+  .wallpaper-info-container> *:first-child,
+  .wallpaper-info-container:hover > *:first-child,
+  .wallpaper-info-container> *:last-child,
+  .wallpaper-info-container:hover > *:last-child {
+    transform: none;
+  } 
+  .wallpaper-info-container> *:last-child {
+    opacity: 1;
+  }  
+}

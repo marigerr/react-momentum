@@ -14,15 +14,15 @@ export default class BackgroundSettings extends React.Component {
       <div key={wallpaper.id} className="wallpaper-item">
         <img className="wallpaper-img" src={wallpaper.urls.small} />
         <div className="wallpaper-icons-container">
-          <div className="transparency2" title="Remove">
+          <div title="Remove">
             <Likeheart
               toggleLike={this.props.toggleLike.bind(this)}
               liked={wallpaper.wallpaperLiked}
               type='wallpaper'
               id={wallpaper.id} />
           </div>
-          <div className="transparency2" title="Display" onClick={() => this.props.displayFavWallpaper(this.props.wallpaperData, wallpaper.id)}>
-            <img className="display-img" src='./assets/images/technology.svg' />
+          <div title="Display" onClick={() => this.props.displayFavWallpaper(this.props.wallpaperData, wallpaper.id)}>
+            <img className="display-img drop-shadow" src='./assets/images/technology.svg' />
           </div>
         </div>
       </div>
@@ -42,7 +42,7 @@ export default class BackgroundSettings extends React.Component {
         <div>
           {this.wallpapersList(this.props.arrLikedWallpapers)}
         </div>
-        <div className="label-end tip">Tip: Hover to manage your favorites from our daily backgrounds</div>
+        <div className="label-end tip">Tip: Select Heart Symbol to remove from favorites.<br/>  Select Monitor Symbol to display as current background</div>
       </div>
     );
   }

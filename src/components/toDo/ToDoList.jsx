@@ -16,7 +16,7 @@ export default class ToDoList extends React.Component {
     const amountUndoneToDos = getFromLocalStorage('undoneToDos');
     const toggleModalStatus = getFromLocalStorage('toggleTodoModal');
     this.state = {
-      todo: 'ToDo',
+      todo: 'ToDo List',
       toDosArr: toDosArrSaved === true ? toDosArr : [],
       todoInput: '',
       placeholder: 'New todo',
@@ -114,6 +114,7 @@ export default class ToDoList extends React.Component {
     return (
       <div className="todo-list-container">
         {this.state.toggleModal && <ToDoModal
+          toggleModal={this.toggleModal.bind(this)}
           deleteTodo={todoId => this.deleteTodo(todoId)}
           clickCheckbox={todoId => this.clickCheckbox(todoId)}
           containerStyle={this.state.containerStyle}
@@ -129,7 +130,7 @@ export default class ToDoList extends React.Component {
           amountUndoneToDos={this.state.amountUndoneToDos}
         />
         }
-        <div className="todo-icon" onClick={this.toggleModal.bind(this)}>{this.state.todo}</div>
+        <div className="todo-icon" onClick={this.toggleModal.bind(this)}><img className='todolist-check' src='./assets/images/002-check.svg'/>{this.state.todo}</div>
       </div>
     );
   }

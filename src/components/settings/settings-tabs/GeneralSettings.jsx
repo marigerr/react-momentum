@@ -26,7 +26,7 @@ export default class GeneralSettings extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="settings-main-pane-inner">
         <h1>Show</h1>
         <label className="show-option">
           <span>Chrome Tab</span>

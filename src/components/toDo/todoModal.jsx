@@ -37,24 +37,27 @@ class ToDoModal extends Component {
   render() {
     return (
       <div className="todo-modal">
-        <div className="todoList-status">{this.props.amountUndoneToDos} to do</div>
-        {this.props.toDosArr.length !== 0 &&
-          <div className="todoList-container">{this.toDoList(this.props.toDosArr)}</div>
-        }
-        {this.props.toDosArr.length === 0 &&
-          <div className="no-todo-container">
-            <div><img className="smile" src='./assets/images/smile.svg'/></div>
-            <div>Nothing to do</div>
-            <div>One step at a time...</div>
-          </div>
-        }
-        <AskInput
-          inputStyle={this.props.inputStyle}
-          addInput={this.props.addInput.bind(this)}
-          updateInputValue={this.props.updateInputValue.bind(this)}
-          value={this.props.value}
-          placeholder={this.props.placeholder}
-        />
+        <div className="status-and-list">
+          <div className="todoList-status">{this.props.amountUndoneToDos} to do</div>
+          {this.props.toDosArr.length !== 0 &&
+            <div className="todoList-container">{this.toDoList(this.props.toDosArr)}</div>
+          }
+          {this.props.toDosArr.length === 0 &&
+            <div className="no-todo-container">
+              <div><img className="smile" src='./assets/images/smile.svg' /></div>
+              <div>Nothing to do</div>
+              <div>One step at a time...</div>
+            </div>
+          }
+          <AskInput
+            inputStyle={this.props.inputStyle}
+            addInput={this.props.addInput.bind(this)}
+            updateInputValue={this.props.updateInputValue.bind(this)}
+            value={this.props.value}
+            placeholder={this.props.placeholder}
+          />
+        </div>
+        <div className="close" onClick={this.props.toggleModal.bind(this)}>&times;</div>
       </div>
     );
   }

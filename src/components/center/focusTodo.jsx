@@ -155,7 +155,7 @@ class FocusToDo extends Component {
     }
     return (
       <div className="focusToDo-main-container">
-        <div className="container-center-todo">TODAY</div>
+        <div className="container-center-todo">Main Focus Today</div>
         <ListToDoItem
           toDoStyle={this.state.toDoStyle.toDoCross}
           containerStyle={this.state.toDoStyle.container}

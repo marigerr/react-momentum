@@ -79,3 +79,19 @@
   font-weight: normal;
   margin-bottom: 20px;
 }
+
+@media only screen and (max-width: 700px) {
+  .settings-modal {
+    width: 90%;
+  }
+  .settings-side-menu{
+    padding: 20px 3px;
+  }
+  .settings-main-pane {
+    width: 60%;
+    padding: 10px 3px;
+  }
+  .quoteListItem-container {
+    width: 80%;
+  }
+}

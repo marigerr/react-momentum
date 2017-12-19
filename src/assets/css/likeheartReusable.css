@@ -17,5 +17,5 @@
 .icon-heart {
   width: 15px;
   height: 15px;
-  filter: drop-shadow( 1px 1px 1px grey );
+  filter: drop-shadow( 1px 1px 2px grey );
 }

@@ -40,6 +40,10 @@ export default class App extends React.Component {
       arrLikedWallpapers,
       showFeatures: userSettings.showFeatures,
       options: userSettings.options,
+      responsiveWPI: 'wallpaper-info-container hide700',
+      responsiveQuote: 'quote-container hide700',
+      quoteToggle: 'Quote',
+      wpiToggle: 'Pic Info',
     };
   }
 
@@ -171,6 +175,29 @@ export default class App extends React.Component {
     });
   }
 
+  toggleShow(e) {
+    const target = e.target.id.slice(0, -7).concat('ClassName');
+    if (target === 'quoteClassName') {
+      const newState = this.state.responsiveQuote === 'quote-container hide700' ? 'quote-container' : 'quote-container hide700';
+      const newToggleState = this.state.quoteToggle === 'Quote' ? 'X' : 'Quote';
+      this.setState({
+        responsiveQuote: newState,
+        quoteToggle: newToggleState,
+        responsiveWPI: 'wallpaper-info-container hide700',
+        wpiToggle: 'Pic Info',
+      });
+    } else {
+      const newState = this.state.responsiveWPI === 'wallpaper-info-container hide700' ? 'wallpaper-info-container' : 'wallpaper-info-container hide700';
+      const newToggleState = this.state.wpiToggle === 'Pic Info' ? 'X' : 'Pic Info';
+      this.setState({
+        responsiveWPI: newState,
+        wpiToggle: newToggleState,
+        responsiveQuote: 'quote-container hide700',
+        quoteToggle: 'Quote',
+      });
+    }
+  }
+
   render() {
     if (this.state.usernameStatus.existName) {
       return (
@@ -211,25 +238,27 @@ export default class App extends React.Component {
               clockFormat={this.state.options.clockFormat} />
           </div>
           <div className="row bottom-row">
-            <div className="wallpaper-info-outer-container">
-              {this.state.wallpaperData &&
-                <WallpaperInfo
-                  wallpaperData={this.state.wallpaperData}
-                  toggleLike={this.toggleLike.bind(this)}
-                />
-              }
+            <div className="toggle-div show700">
+              <div id="wallpaperInfo-toggle" onClick={this.toggleShow.bind(this)}>{this.state.wpiToggle}</div>
+              <div id="quote-toggle" onClick={this.toggleShow.bind(this)}>{this.state.quoteToggle}</div>
             </div>
+            {this.state.wallpaperData &&
+              <WallpaperInfo
+                wallpaperInfoClassName={this.state.responsiveWPI}
+                wallpaperData={this.state.wallpaperData}
+                toggleLike={this.toggleLike.bind(this)}
+              />
+            }
             {this.state.showFeatures.showQuote &&
               <Quote
+                quoteClassName={this.state.responsiveQuote}
                 updateQuoteInfo={this.updateQuoteInfo.bind(this)}
                 toggleLike={this.toggleLike.bind(this)}
                 quote={this.state.currentQuote}
                 quoteFrequency={this.state.options.quoteFrequency}
               />
             }
-            <div className="todo-list-container">
-              {this.state.showFeatures.showTodo && <ToDoList />}
-            </div>
+            {this.state.showFeatures.showTodo && <ToDoList />}
           </div>
         </main>
       );
@@ -253,12 +282,6 @@ export default class App extends React.Component {
           />
         </div>
         <div className="row bottom-row">
-          {this.state.wallpaperData &&
-            <WallpaperInfo
-              wallpaperData={this.state.wallpaperData}
-              toggleLike={this.toggleLike.bind(this)}
-            />
-          }
         </div>
       </main>
     );

@@ -20,7 +20,7 @@ export default class WallpaperInfo extends React.Component {
         haveTodaysPhoto: true,
       };
       addToLocalStorage('wallpaperTimestamp', getCurrentTime());
-    } else if (window.matchMedia('(min-width: 700px)').matches && haveTodaysPhoto) {
+    } else if (haveTodaysPhoto) {
       const wallpaperData = getFromLocalStorage('wallpaper');
       this.state = {
         wallpaperData,
@@ -55,7 +55,7 @@ export default class WallpaperInfo extends React.Component {
 
   componentDidMount() {
     this.props.updateWallpaperInfo(this.state.wallpaperData);
-    if (window.matchMedia('(min-width: 700px)').matches && !this.state.haveTodaysPhoto) {
+    if (!this.state.haveTodaysPhoto) {
       getUnsplashPhoto()
         .then((result) => {
           const wallpaperData = result.data;
@@ -92,7 +92,6 @@ export default class WallpaperInfo extends React.Component {
   render() {
     return (
       <div className="wallpaper-container" style={this.state.divStyle}>
-        {/* Demo for Desktop Only */}
       </div>
     );
   }

@@ -25,7 +25,6 @@ main {
 .top-row, .bottom-row {
   margin: 10px 20px;
   justify-content: space-between;
-  align-items: center;
 }
 
 .top-row {
@@ -34,14 +33,15 @@ main {
 
 .bottom-row {
   height: 75px;
-} 
+  align-items: center;
+}
 
 .middle-row {
   justify-content: center;
   align-items: center;
 }
 
-.wallpaper-info-outer-container, .todo-list-container{
+.todo-list-container, .wallpaper-info-container{
   flex-grow: 1;
   flex-basis: 25%;
 }
@@ -51,12 +51,54 @@ main {
   flex-basis: 50%
 }
 
+.hide {
+  display: none;
+}
+
 @media only screen and (max-width: 700px) {
-  main {
-    color: transparent !important;
+  .bottom-row {
+    flex-direction: column-reverse;
+    height: 200px;
   }
-  .askToDo-input {
-    border: none;
-    cursor: none;
+  .quote-container {
+    width: 95%;
+    flex-basis: 25%;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0px;
+  }
+  .wallpaper-info-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .photographer-container {
+    justify-content: center;
+  }
+  #center {
+    height: 50%;
+  }
+  .todo-list-container {
+    align-items: center;
+    justify-content: center;    
+  } 
+  .hide700 {
+    display: none;
   }  
+  .show700 {
+    display: block;
+  }  
+  .toggle-div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }  
+}
+
+@media only screen and (min-width: 701px) {
+  .show700 {
+    display: none;
+  }
 }

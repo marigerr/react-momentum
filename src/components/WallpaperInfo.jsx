@@ -25,7 +25,7 @@ export default class WallpaperInfo extends React.Component {
     const unsplashUTM = '?utm_source=turtle-team-5.surge.sh&utm_medium=referral&utm_campaign=api-credit';
 
     return (
-      <div className="wallpaper-info-container">
+      <div className={this.props.wallpaperInfoClassName}>
         <div>{location}</div>
         <div className="photographer-container">
           <div>
@@ -34,10 +34,11 @@ export default class WallpaperInfo extends React.Component {
           <Likeheart
             toggleLike={this.props.toggleLike.bind(this)}
             liked={this.state.wallpaperLiked}
-            id= {this.props.wallpaperData.id}
+            id={this.props.wallpaperData.id}
             type='wallpaper' />
         </div>
       </div>
+      // </div>
     );
   }
 }

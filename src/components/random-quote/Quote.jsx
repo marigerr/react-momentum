@@ -82,7 +82,7 @@ class Quote extends Component {
 
   render() {
     return (
-      <div className='quote-container'>
+      <div className={this.props.quoteClassName}>
         <div>{this.state.currentQuote.quote}</div>
         <div className='author-container'>
           <div>{this.state.currentQuote.author}</div>

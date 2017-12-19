@@ -11,9 +11,3 @@
   background: cover center no-repeat;
   color: transparent;
 }
-
-@media only screen and (max-width: 700px) {
-  .wallpaper-container {
-    color: black !important;
-  }
-}
