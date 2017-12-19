@@ -44,7 +44,7 @@ module.exports = {
           /\.(woff|woff2|eot|ttf|otf)$/,
           path.join(__dirname, 'src/manifest.json'),
           path.join(__dirname, 'src/index.html'),
-          path.join(__dirname, 'src/favicon.ico'),
+          path.join(__dirname, 'src/assets/images/favicons/favicon.ico'),
         ],
         use: [{
           loader: 'file-loader',
