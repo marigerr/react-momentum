@@ -78,3 +78,12 @@
   color: #D3D3D3;
   margin-top: 5px;
 }
+
+@media only screen and (max-width: 700px) {
+  .todo-modal {
+    width: 85%;
+    margin: 0;
+    right: 7%;
+    bottom: 10px;
+  }
+} 

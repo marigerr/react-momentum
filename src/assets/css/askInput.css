@@ -4,7 +4,7 @@
 }
 
 .askName-input {
-  width: 90%;
+  width: 50%;
   margin: 0% 5%;
   outline: none;
   border: none;
@@ -25,7 +25,7 @@
 }
 
 .askToDo-input {
-  width: 80%;
+  width: 50%;
   margin: 0% 10%;
   outline: none;
   border: none;
@@ -45,13 +45,26 @@
   color: #FFF;
   width: 90%;
   height: 30px;
-  font-size: 15px;
+  font-size: 16px;
   margin-left: 5%;
   margin-right: 5%;
+}
+
+.flex-column-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 @media only screen and (max-width: 700px) {
   .askToDo-label  {
     font-size: 20px;
+  }
+  .askName-label {
+    font-size:50px;
+  }
+  .askName-input, .askToDo-input {
+    width: 80%;
   }
 }

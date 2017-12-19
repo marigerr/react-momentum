@@ -113,6 +113,7 @@ export default class ToDoList extends React.Component {
   render() {
     return (
       <div className="todo-list-container">
+        <div className="todo-icon" onClick={this.toggleModal.bind(this)}><img className='todolist-check' src='./assets/images/002-check.svg' />{this.state.todo}</div>
         {this.state.toggleModal && <ToDoModal
           toggleModal={this.toggleModal.bind(this)}
           deleteTodo={todoId => this.deleteTodo(todoId)}
@@ -130,7 +131,6 @@ export default class ToDoList extends React.Component {
           amountUndoneToDos={this.state.amountUndoneToDos}
         />
         }
-        <div className="todo-icon" onClick={this.toggleModal.bind(this)}><img className='todolist-check' src='./assets/images/002-check.svg'/>{this.state.todo}</div>
       </div>
     );
   }
