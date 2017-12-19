@@ -6,9 +6,7 @@ Clone of [Momentum Dash](https://chrome.google.com/webstore/detail/momentum/laoo
 
 Developed as [Chingu Cohort](https://chingu-cohorts.github.io/chingu-directory/) "Build to Learn" project 
 
-Web demo of extension is available at https://marigerr.github.io/react-momentum-clone/
-
-**Note: The web demo of extension is viewable only for desktops as project was built as a chrome extension which are desktop only**
+See Web demo of extension is at https://marigerr.github.io/react-momentum-clone/
 
 ## Install Extension for development
 
