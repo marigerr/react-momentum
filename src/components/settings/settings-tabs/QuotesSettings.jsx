@@ -56,7 +56,7 @@ export default class QuotesSettings extends React.Component {
         </div>
         <label className="show-option2">
           <span>Quote Frequency</span>
-          <div className="units-toggle-container">
+          <div className="units-toggle-container2">
             <span id="quoteFrequency-2hour" className={this.activeQuoteFrequency('2hour')} onClick={this.changeOption.bind(this)}>2 hr</span>
             <span>|</span>
             <span id="quoteFrequency-6hour" className={this.activeQuoteFrequency('6hour')} onClick={this.changeOption.bind(this)}>6 hr</span>

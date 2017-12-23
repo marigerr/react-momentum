@@ -21,11 +21,11 @@
   cursor: pointer;
 }
 
-.units-toggle-container > :nth-child(2) {
+.units-toggle-container2 > :nth-child(2) {
   color: rgba(255, 255, 255, 0.5);
   margin-bottom: 3px;
 }
-.units-toggle-container > :nth-child(4) {
+.units-toggle-container2 > :nth-child(4) {
   color: rgba(255, 255, 255, 0.5);
   margin-bottom: 3px;
 }
@@ -35,7 +35,7 @@
   opacity: 1;
 }
 
-.units-toggle-container {
+.units-toggle-container2 {
   display: flex;
   justify-content: space-around;
   width: 150px;
@@ -101,4 +101,7 @@
   .transparency {
     opacity: 1;
   }  
+  .units-toggle-container2 {
+    width: 70%;
+  }
 }
