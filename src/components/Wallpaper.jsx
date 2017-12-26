@@ -3,72 +3,80 @@ import { getCurrentTime, localStorageKeyExists, addToLocalStorage, getFromLocalS
 import { getUnsplashPhoto } from 'Scripts/apiCalls';
 import 'Stylesheets/wallpaper.css';
 import 'Images/photo-1476616853026-24c1f0309646.jpg';
+import 'Images/photo-1476616853026-24c1f0309646-thumb.jpg';
 
 export default class WallpaperInfo extends React.Component {
   constructor(props) {
     super(props);
     const haveTodaysPhoto = isNotANewDay(localStorage.wallpaperTimestamp, getCurrentTime());
-    if (localStorage.wallpaperTimestamp === '0') {
+    if (localStorage.wallpaperTimestamp === '0' || haveTodaysPhoto) {
       this.state = {
-        divStyle: {
-          backgroundImage: 'url(./assets/images/photo-1476616853026-24c1f0309646.jpg)',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no - repeat',
-          backgroundSize: 'cover',
-        },
-        wallpaperData: getFromLocalStorage('wallpaper'),
+        wallpaperData: props.wallpaperData,
         haveTodaysPhoto: true,
+        showThumb: true,
       };
-      addToLocalStorage('wallpaperTimestamp', getCurrentTime());
-    } else if (haveTodaysPhoto) {
-      const wallpaperData = getFromLocalStorage('wallpaper');
-      this.state = {
-        wallpaperData,
-        divStyle: {
-          backgroundImage: `url(${wallpaperData.urls.regular})`,
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no - repeat',
-          backgroundSize: 'cover',
-        },
-        haveTodaysPhoto: true,
-      };
+      if (localStorage.wallpaperTimestamp === '0') addToLocalStorage('wallpaperTimestamp', getCurrentTime());
+      this.preLoadImages(this.props.wallpaperData.urls.regular, this.props.wallpaperData.urls.thumb);
     } else {
       this.state = {
         divStyle: {},
         haveTodaysPhoto: false,
+        showThumb: true,
       };
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.wallpaperData && this.state !== nextProps.wallpaperData) {
+  preLoadImages(regularPic, thumbnail) {
+    // 1: load lowres and show it
+    const img = new Image();
+    img.src = thumbnail;
+    img.onload = () => {
       this.setState({
-        divStyle: {
-          backgroundImage: `url(${nextProps.wallpaperData.urls.regular})`,
+        thumbdDivStyle: {
+          backgroundImage: `url(${img.src})`,
           backgroundPosition: 'center',
-          backgroundRepeat: 'no - repeat',
+          backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
         },
       });
+      this.props.showText();
+    };
+
+    // 2: load large image
+    const imgLarge = new Image();
+    imgLarge.src = regularPic;
+    imgLarge.onload = () => {
+      this.setState({
+        divStyle: {
+          backgroundImage: `url(${imgLarge.src})`,
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+        },
+        showThumb: false,
+      });
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.wallpaperData && this.state.wallpaperData.id !== nextProps.wallpaperData.id) {
+      this.setState({
+        wallpaperData: nextProps.wallpaperData,
+      });
+      this.preLoadImages(nextProps.wallpaperData.urls.regular, nextProps.wallpaperData.urls.thumb);
     }
   }
 
   componentDidMount() {
-    this.props.updateWallpaperInfo(this.state.wallpaperData);
     if (!this.state.haveTodaysPhoto) {
       getUnsplashPhoto()
         .then((result) => {
           const wallpaperData = result.data;
           wallpaperData.wallpaperLiked = localStorageKeyExists('wallpaper') &&
             objIsInArray(getFromLocalStorage('arrLikedWallpapers'), 'id', wallpaperData.id);
+          this.preLoadImages(wallpaperData.urls.regular, wallpaperData.urls.thumb);
           this.setState({
             wallpaperData,
-            divStyle: {
-              backgroundImage: `url(${wallpaperData.urls.regular})`,
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no - repeat',
-              backgroundSize: 'cover',
-            },
           });
           addToLocalStorage('wallpaper', wallpaperData);
           addToLocalStorage('wallpaperTimestamp', getCurrentTime());
@@ -79,9 +87,6 @@ export default class WallpaperInfo extends React.Component {
           this.setState({
             divStyle: {
               backgroundImage: 'url(./assets/images/photo-1476616853026-24c1f0309646.jpg)',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no - repeat',
-              backgroundSize: 'cover',
             },
           });
         });
@@ -90,6 +95,12 @@ export default class WallpaperInfo extends React.Component {
 
 
   render() {
+    if (this.state.showThumb) {
+      return (
+        <div className="wallpaper-container" style={this.state.thumbdDivStyle}>
+        </div>
+      );
+    }
     return (
       <div className="wallpaper-container" style={this.state.divStyle}>
       </div>

@@ -24,8 +24,10 @@ export default class App extends React.Component {
     const currentQuote = getFromLocalStorage('quote') || {};
     const arrLikedQuotes = getFromLocalStorage('arrLikedQuotes') || [];
     const arrLikedWallpapers = getFromLocalStorage('arrLikedWallpapers') || [];
+    const wallpaperData = getFromLocalStorage('wallpaper');
 
     this.state = {
+      wallpaperData,
       usernameStatus: {
         username: savedUsername === true ? username : '',
         existName: savedUsername,
@@ -44,6 +46,7 @@ export default class App extends React.Component {
       responsiveQuote: 'quote-container hide700',
       quoteToggle: 'Quote',
       wpiToggle: 'Pic Info',
+      showText: false,
     };
   }
 
@@ -169,7 +172,14 @@ export default class App extends React.Component {
     }
   }
 
+  showText() {
+    this.setState({
+      showText: true,
+    });
+  }
+
   updateWallpaperInfo(wallpaperData) {
+    console.log('update wallpaper info called in app.jsx');
     this.setState({
       wallpaperData,
     });
@@ -204,6 +214,7 @@ export default class App extends React.Component {
         <main id="main">
           <Wallpaper
             updateWallpaperInfo={this.updateWallpaperInfo.bind(this)}
+            showText={this.showText.bind(this)}
             wallpaperData={this.state.wallpaperData}
           />
           {this.state.showSettingsModal &&
@@ -222,44 +233,50 @@ export default class App extends React.Component {
               arrLikedWallpapers={this.state.arrLikedWallpapers}
             />
           }
-          <div className="row top-row">
-            <div className="top-left-flex">
-              <SettingsIcon toggleSettingsModal={this.toggleSettingsModal.bind(this)} />
-              <TopLeft showFeatures={this.state.showFeatures} />
-            </div>
-            <Weather
-              showWeather={this.state.showFeatures.showWeather}
-              tempScale={this.state.options.tempScale}
-            />
-          </div>
-          <div className="row middle-row">
-            <Center
-              showFocus={this.state.showFeatures.showFocus}
-              clockFormat={this.state.options.clockFormat} />
-          </div>
-          <div className="row bottom-row">
-            <div className="toggle-div show700">
-              <div id="wallpaperInfo-toggle" onClick={this.toggleShow.bind(this)}>{this.state.wpiToggle}</div>
-              <div id="quote-toggle" onClick={this.toggleShow.bind(this)}>{this.state.quoteToggle}</div>
-            </div>
-            {this.state.wallpaperData &&
-              <WallpaperInfo
-                wallpaperInfoClassName={this.state.responsiveWPI}
-                wallpaperData={this.state.wallpaperData}
-                toggleLike={this.toggleLike.bind(this)}
+          {this.state.showText &&
+            <div className="row top-row">
+              <div className="top-left-flex">
+                <SettingsIcon toggleSettingsModal={this.toggleSettingsModal.bind(this)} />
+                <TopLeft showFeatures={this.state.showFeatures} />
+              </div>
+              <Weather
+                showWeather={this.state.showFeatures.showWeather}
+                tempScale={this.state.options.tempScale}
               />
-            }
-            {this.state.showFeatures.showQuote &&
-              <Quote
-                quoteClassName={this.state.responsiveQuote}
-                updateQuoteInfo={this.updateQuoteInfo.bind(this)}
-                toggleLike={this.toggleLike.bind(this)}
-                quote={this.state.currentQuote}
-                quoteFrequency={this.state.options.quoteFrequency}
-              />
-            }
-            {this.state.showFeatures.showTodo && <ToDoList />}
-          </div>
+            </div>
+          }
+          {this.state.showText &&
+            <div className="row middle-row">
+              <Center
+                showFocus={this.state.showFeatures.showFocus}
+                clockFormat={this.state.options.clockFormat} />
+            </div>
+          }
+          {this.state.showText &&
+            <div className="row bottom-row">
+              <div className="toggle-div show700">
+                <div id="wallpaperInfo-toggle" onClick={this.toggleShow.bind(this)}>{this.state.wpiToggle}</div>
+                <div id="quote-toggle" onClick={this.toggleShow.bind(this)}>{this.state.quoteToggle}</div>
+              </div>
+              {this.state.wallpaperData &&
+                <WallpaperInfo
+                  wallpaperInfoClassName={this.state.responsiveWPI}
+                  wallpaperData={this.state.wallpaperData}
+                  toggleLike={this.toggleLike.bind(this)}
+                />
+              }
+              {this.state.showFeatures.showQuote &&
+                <Quote
+                  quoteClassName={this.state.responsiveQuote}
+                  updateQuoteInfo={this.updateQuoteInfo.bind(this)}
+                  toggleLike={this.toggleLike.bind(this)}
+                  quote={this.state.currentQuote}
+                  quoteFrequency={this.state.options.quoteFrequency}
+                />
+              }
+              {this.state.showFeatures.showTodo && <ToDoList />}
+            </div>
+          }
         </main>
       );
     }
@@ -267,20 +284,23 @@ export default class App extends React.Component {
       <main id="main">
         <Wallpaper
           updateWallpaperInfo={this.updateWallpaperInfo.bind(this)}
+          showText={this.showText.bind(this)}
           wallpaperData={this.state.wallpaperData}
         />
         <div className="row top-row">
         </div>
-        <div className="row middle-row">
-          <AskInput
-            labelStyle={this.state.askNameStyle.label}
-            inputStyle={this.state.askNameStyle.input}
-            addInput={e => this.addInput(e)}
-            updateInputValue={e => this.updateInputValue(e)}
-            value={this.state.usernameStatus.username}
-            askInput={this.state.usernameStatus.askName}
-          />
-        </div>
+        {this.state.showText &&
+          <div className="row middle-row">
+            <AskInput
+              labelStyle={this.state.askNameStyle.label}
+              inputStyle={this.state.askNameStyle.input}
+              addInput={e => this.addInput(e)}
+              updateInputValue={e => this.updateInputValue(e)}
+              value={this.state.usernameStatus.username}
+              askInput={this.state.usernameStatus.askName}
+            />
+          </div>
+        }
         <div className="row bottom-row">
         </div>
       </main>
