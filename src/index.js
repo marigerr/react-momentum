@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from 'Components/App.jsx';
-import 'Src/index.html';
 import 'Src/manifest.json';
 import 'Images/favicons/android-chrome-192x192.png';
 import 'Images/favicons/android-chrome-512x512.png';

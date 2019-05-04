@@ -8,7 +8,8 @@
     "server-production": "node_modules/.bin/webpack-dev-server --open --config webpack.config.prod.js",
     "watch": "webpack --watch",
     "dev-server": "node_modules/.bin/webpack-dev-server --open --config webpack.config.dev.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pushToGhPages": "git subtree push --prefix dist origin gh-pages"
   },
   "repository": {
     "type": "git",
