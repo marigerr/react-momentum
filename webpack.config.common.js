@@ -1,4 +1,6 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   context: path.join(__dirname, 'src'),
@@ -6,15 +8,19 @@ module.exports = {
     './index.js',
   ],
   output: {
-    path: __dirname,
+    path: path.resolve(__dirname, "dist"),
     filename: 'bundle.js',
   },
   devServer: {
-    contentBase: path.resolve(__dirname, 'dist'),
+    contentBase: path.resolve(__dirname),
     watchOptions: { poll: true },
     compress: true,
     port: 8080,
   },
+  plugins: [
+    new MiniCssExtractPlugin({ filename: '[name].bundle.css' }),
+    new HtmlWebpackPlugin({ template: __dirname + '/src/index.html' })
+  ],
   module: {
     rules: [
       {
@@ -24,26 +30,36 @@ module.exports = {
           'babel-loader',
         ],
       },
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
-        options: { fix: true },
-      },
+      // {
+      //   test: /\.(js|jsx)$/,
+      //   exclude: /node_modules/,
+      //   loader: 'eslint-loader',
+      //   options: { fix: true },
+      // },
 
       {
         test: /\.css$/,
         use: [
-          'style-loader',
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: { hmr: process.env.NODE_ENV === 'development' },
+          },
           'css-loader',
         ],
       },
+      // {
+      //   test: /\.json$/,
+      //   loader: 'json-loader',
+      //   exclude: [
+      //     path.join(__dirname, "src/manifest.json")
+      //   ],
+      // },
       {
         test: [
           /\.(png|svg|jpg|gif)$/,
           /\.(woff|woff2|eot|ttf|otf)$/,
           path.join(__dirname, 'src/manifest.json'),
-          path.join(__dirname, 'src/index.html'),
+
           path.join(__dirname, 'src/assets/images/favicons/favicon.ico'),
         ],
         use: [{
@@ -53,18 +69,18 @@ module.exports = {
           },
         }],
       },
-      // {
-      //   test: [
-      //     path.join(__dirname, 'src/CNAME'),
-      //     path.join(__dirname, 'src/.surgeignore'),
-      //   ],
-      //   use: [{
-      //     loader: 'file-loader',
-      //     options: {
-      //       name: '[path][name]',
-      //     },
-      //   }],
-      // },
+      {
+        type: 'javascript/auto',
+        test: path.join(__dirname, 'src/manifest.json'),
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: "[name].[ext]"
+            }
+          }
+        ]
+      }
     ],
   },
   resolve: {

@@ -27,7 +27,6 @@
     "max-len": ["off"],
     "no-console": "off",
     "react/prop-types": "off",
-    // "no-unused-vars": "off",
     "class-methods-use-this": "off"
   },
   "plugins": [
