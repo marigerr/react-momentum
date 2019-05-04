@@ -58,7 +58,6 @@ module.exports = {
         test: [
           /\.(png|svg|jpg|gif)$/,
           /\.(woff|woff2|eot|ttf|otf)$/,
-          path.join(__dirname, 'src/manifest.json'),
 
           path.join(__dirname, 'src/assets/images/favicons/favicon.ico'),
         ],
@@ -70,8 +69,8 @@ module.exports = {
         }],
       },
       {
-        type: 'javascript/auto',
         test: path.join(__dirname, 'src/manifest.json'),
+        type: 'javascript/auto',
         use: [
           {
             loader: 'file-loader',
