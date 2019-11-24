@@ -46,7 +46,7 @@
     "webpack-merge": "^4.2.1"
   },
   "dependencies": {
-    "axios": "^0.16.2",
+    "axios": "^0.19.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-toggle": "^4.0.1"
